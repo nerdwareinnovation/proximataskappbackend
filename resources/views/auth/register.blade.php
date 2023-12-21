@@ -132,7 +132,7 @@
                                 <div class="mb-1">
                                     <!--begin::Input wrapper-->
                                     <div class="position-relative mb-3">
-                                        <input class="form-control bg-transparent @error('password') is-invalid @enderror" name="password" required type="password" placeholder="Password" name="password" autocomplete="on" />
+                                        <input class="form-control bg-transparent @error('password') is-invalid @enderror" name="password" required type="password" placeholder="Password" autocomplete="on" />
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -162,7 +162,7 @@
                             <!--end::Input group=-->
                             <div class="fv-row mb-8">
                                 <!--begin::Repeat Password-->
-                                <input placeholder="Repeat Password" name="password-confirm" type="password" autocomplete="on" class="form-control bg-transparent" />
+                                <input placeholder="Repeat Password" name="password_confirmation" type="password" autocomplete="on" class="form-control bg-transparent" />
                                 <!--end::Repeat Password-->
                             </div>
                             <!--end::Input group=-->
