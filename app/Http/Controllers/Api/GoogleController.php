@@ -34,7 +34,7 @@ class GoogleController extends Controller
                 return response()->Json([
                     'status' => true,
                     'message' => 'User Logged In Successfully',
-                    'token' => $user->createToken("API TOKEN")->plainTextToken
+                    'token' => $user->createToken("API TOKEN")->accessToken
                 ], 200);
             }else{
                 //user is not yet created, so create first
@@ -52,7 +52,7 @@ class GoogleController extends Controller
                 return response()->Json([
                     'status' => true,
                     'message' => 'User Logged In Successfully',
-                    'token' => $user->createToken("API TOKEN")->plainTextToken
+                    'token' => $user->createToken("API TOKEN")->accessToken
                 ], 200);
 
             }

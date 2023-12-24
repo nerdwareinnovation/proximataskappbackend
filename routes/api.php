@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GoogleController;
+use App\Http\Controllers\Api\NotesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,7 @@ Route::post('/login', [AuthController::class, 'loginUser']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 Route::group(['middleware' => ['web']], function () {
     Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+});
+Route::middleware('auth:api')->group(function() {
+    Route::resource('notes', NotesController::class);
 });
