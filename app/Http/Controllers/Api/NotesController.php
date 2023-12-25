@@ -49,12 +49,12 @@ class NotesController extends Controller
     }
     public function update(Request $request, $id){
         $input = $request->post();
-//         $request->post()->validate([
-//            'font' => 'required',
-//            'theme' => 'required',
-//            'color_option' => 'required',
-//            'note' => 'required',
-//        ]);
+         $request->validate([
+            'font' => 'required',
+            'theme' => 'required',
+            'color_option' => 'required',
+            'note' => 'required',
+        ]);
 
 //        dd($notes);
 //        $record = Notes::find($id);
