@@ -59,6 +59,29 @@ class TaskController extends Controller
         $task->voice_note = $request->voice_note;
         $task->delete_reason = $request->delete_reason;
         $task->restore_reason = $request->restore_reason;
+        if (isset($request->is_important)){
+            $task->is_important=1;
+        }else{
+            $task->is_important=0;
+        }
+        if(isset($request->is_urgent)){
+        $task->is_urgent=1;
+        }
+        else
+        {
+        $task->is_urgent = 0;
+        }
+        if(isset($request->set_remainder)){
+            $task->set_remainder = 1;
+        }
+        else{
+            $task->set_remainder =0;
+        }
+        if (isset($request->is_restored)){
+            $task->is_restored=1;
+        }else{
+            $task->is_restored=0;
+        }
         $task->save();
         return response()->json([
             'data'=> $task,
