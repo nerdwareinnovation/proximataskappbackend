@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Notes extends Model
 {
     use HasFactory;
-    protected $fillable=['font', 'note', 'color_option','theme','user_id'];
+    protected $fillable=['font', 'note', 'color_option','note_title','theme','user_id'];
 }

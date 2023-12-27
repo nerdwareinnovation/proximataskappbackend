@@ -24,6 +24,7 @@ class NotesController extends Controller
                 'theme' => 'required',
                 'color_option' => 'required',
                 'note' => 'required',
+             'note_title'=>'required'
             ]);
 
         $input['user_id'] = auth()->user()->id;
@@ -54,6 +55,7 @@ class NotesController extends Controller
             'theme' => 'required',
             'color_option' => 'required',
             'note' => 'required',
+             'note_title'=>'required'
         ]);
 
 //        dd($notes);
@@ -69,6 +71,7 @@ class NotesController extends Controller
         $notes->font = $input['font'];
         $notes->theme = $input['theme'];
         $notes->note = $input['note'];
+        $notes->note_title = $input['note_title'];
         $notes->color_option = $input['color_option'];
         $notes->save();
         return response()->json([
