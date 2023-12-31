@@ -49,7 +49,7 @@ class NotesController extends Controller
         ]);
     }
     public function update(Request $request, $id){
-        $input = $request->post();
+        $input = $request->all();
          $request->validate([
             'font' => 'required',
             'theme' => 'required',
