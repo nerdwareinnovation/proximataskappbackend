@@ -22,8 +22,8 @@ class UserController extends Controller
     public function index(Request $request): View
     {
         $data = User::latest()->paginate(5);
-
-        return view('backend.users.index',compact('data'))
+        $roles = Role::get();
+        return view('backend.users.index',compact('data','roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -49,7 +49,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            'password' => 'required',
             'roles' => 'required'
         ]);
 
@@ -57,9 +57,10 @@ class UserController extends Controller
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+        $role= Role::find($request->input('roles'));
+        $user->assignRole($role->name);
 
-        return redirect()->route('users.index')
+        return redirect()->route('user.index')
             ->with('success','User created successfully');
     }
 
@@ -69,11 +70,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id): View
-    {
-        $user = User::find($id);
-        return view('users.show',compact('user'));
-    }
+//    public function show($id): View
+//    {
+//        $user = User::find($id);
+//        return view('backend.users.show',compact('user'));
+//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -84,10 +85,10 @@ class UserController extends Controller
     public function edit($id): View
     {
         $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::get();
         $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('backend.users.edit',compact('user','roles','userRole'));
     }
 
     /**
@@ -102,7 +103,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
+            'password' => 'required',
             'roles' => 'required'
         ]);
 
@@ -117,9 +118,10 @@ class UserController extends Controller
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
-        $user->assignRole($request->input('roles'));
+        $role= Role::find($request->input('roles'));
+        $user->assignRole($role->name);
 
-        return redirect()->route('users.index')
+        return redirect()->route('user.index')
             ->with('success','User updated successfully');
     }
 
@@ -132,7 +134,7 @@ class UserController extends Controller
     public function destroy($id): RedirectResponse
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
+        return redirect()->route('user.index')
             ->with('success','User deleted successfully');
     }
 }

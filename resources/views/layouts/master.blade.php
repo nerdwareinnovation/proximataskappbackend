@@ -924,7 +924,14 @@
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
                             <div class="menu-item px-5">
-                                <a href="../../demo7/dist/authentication/layouts/corporate/sign-in.html" class="menu-link px-5">Sign Out</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </div>
                             <!--end::Menu item-->
                         </div>
@@ -2156,7 +2163,7 @@
 																	<span class="path3"></span>
 																</i>
 															</span>
-															<span class="menu-title">User Profile</span>
+															<span class="menu-title">User Management</span>
 															<span class="menu-arrow"></span>
 														</span>
                                                 <!--end:Menu link-->
@@ -2165,74 +2172,30 @@
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link" href="../../demo7/dist/pages/user-profile/overview.html">
+                                                        <a class="menu-link" href="{{route('user.index')}}">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
-                                                            <span class="menu-title">Overview</span>
+                                                            <span class="menu-title">User</span>
                                                         </a>
                                                         <!--end:Menu link-->
                                                     </div>
                                                     <!--end:Menu item-->
                                                     <!--begin:Menu item-->
+
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link" href="../../demo7/dist/pages/user-profile/projects.html">
+                                                        <a class="menu-link" href="{{route('roles.index')}}">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
-                                                            <span class="menu-title">Projects</span>
+                                                            <span class="menu-title">Roles</span>
                                                         </a>
                                                         <!--end:Menu link-->
                                                     </div>
                                                     <!--end:Menu item-->
                                                     <!--begin:Menu item-->
-                                                    <div class="menu-item">
-                                                        <!--begin:Menu link-->
-                                                        <a class="menu-link" href="../../demo7/dist/pages/user-profile/campaigns.html">
-																	<span class="menu-bullet">
-																		<span class="bullet bullet-dot"></span>
-																	</span>
-                                                            <span class="menu-title">Campaigns</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item">
-                                                        <!--begin:Menu link-->
-                                                        <a class="menu-link" href="../../demo7/dist/pages/user-profile/documents.html">
-																	<span class="menu-bullet">
-																		<span class="bullet bullet-dot"></span>
-																	</span>
-                                                            <span class="menu-title">Documents</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item">
-                                                        <!--begin:Menu link-->
-                                                        <a class="menu-link" href="../../demo7/dist/pages/user-profile/followers.html">
-																	<span class="menu-bullet">
-																		<span class="bullet bullet-dot"></span>
-																	</span>
-                                                            <span class="menu-title">Followers</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item">
-                                                        <!--begin:Menu link-->
-                                                        <a class="menu-link" href="../../demo7/dist/pages/user-profile/activity.html">
-																	<span class="menu-bullet">
-																		<span class="bullet bullet-dot"></span>
-																	</span>
-                                                            <span class="menu-title">Activity</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
+
                                                     <!--end:Menu item-->
                                                 </div>
                                                 <!--end:Menu sub-->

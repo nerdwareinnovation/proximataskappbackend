@@ -9,9 +9,9 @@
             <li class="breadcrumb-item text-muted">
                 <a href="{{url('dashboard')}}" class="text-muted text-hover-primary">Home</a>
             </li>
-            <li class="breadcrumb-item text-muted">Roles Management</li>
-            <li class="breadcrumb-item text-muted">Roles</li>
-            <li class="breadcrumb-item text-dark">Roles List</li>
+            <li class="breadcrumb-item text-muted">User Management</li>
+            <li class="breadcrumb-item text-muted">User</li>
+            <li class="breadcrumb-item text-dark">User List</li>
         </ul>
         <!--end::Breadcrumb-->
     </div>
@@ -50,7 +50,7 @@
             <!--begin::Card body-->
             <div class="card-body pt-5">
                 <!--begin::Form-->
-                <form id="kt_ecommerce_settings_general_form" class="form" action="{{route('roles.update',$role->id)}}" method="post">
+                <form id="kt_ecommerce_settings_general_form" class="form" action="{{route('user.update',$user->id)}}" method="post">
                     @csrf
                     @method('PUT')
                     <!--begin::Input group-->
@@ -70,30 +70,68 @@
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="text" class="form-control form-control-solid" name="name" value="{{$role->name}}" />
+                        <input type="text" class="form-control form-control-solid" name="name" value="{{$user->name}}" />
                         <!--end::Input-->
                     </div>
                     <!--end::Input group-->
                     <!--begin::Input group-->
-
+                    <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <label class="fs-6 fw-semibold form-label mt-3">
+                            <span>Password</span>
+                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter the contact's company name (optional).">
+															<i class="ki-duotone ki-information fs-7">
+																<span class="path1"></span>
+																<span class="path2"></span>
+																<span class="path3"></span>
+															</i>
+														</span>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        <input type="password" class="form-control form-control-solid" name="password" value="" />
+                        <!--end::Input-->
+                    </div>
                     <!--end::Input group-->
                     <!--begin::Row-->
                     <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
                         <!--begin::Col-->
+                        <div class="col">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-semibold form-label mt-3">
+                                    <span class="required">Email</span>
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="Enter the contact's email.">
+																	<i class="ki-duotone ki-information fs-7">
+																		<span class="path1"></span>
+																		<span class="path2"></span>
+																		<span class="path3"></span>
+																	</i>
+																</span>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="email" class="form-control form-control-solid" name="email" value="{{$user->email}}" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col">
                             <!--begin::Input group-->
                             <div class="fv-row mb-7">
                                 <!--begin::Label-->
-                                <label class="fs-6 fw-semibold form-label mb-2">Select Permissions:</label>
+                                <label class="fs-6 fw-semibold form-label mb-2">Select Roles:</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                @foreach($permission as $value)
-                                    <label>{{ Form::checkbox('permission[]', $value->name, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                                        {{ $value->name }}</label>
-                                    <br/>
-                                @endforeach
+                                <select name="roles" data-control="select2" data-placeholder="Select a role" data-hide-search="true" class="form-select form-select-solid fw-bold">
+                                    <option></option>
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                    @endforeach
+                                </select>
                                 <!--end::Input-->
                             </div>
                             <!--end::Input group-->
