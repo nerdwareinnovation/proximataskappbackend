@@ -32,3 +32,5 @@ Route::middleware('auth:api')->group(function() {
     Route::resource('notes', NotesController::class);
     Route::resource('task', TaskController::class);
 });
+Route::delete('/task/{id}/delete',[TaskController::class,'isDeleted']);
+Route::patch('/task/{id}/restore',[TaskController::class,'isRestored']);

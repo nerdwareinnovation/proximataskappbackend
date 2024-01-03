@@ -29,7 +29,7 @@ Route::prefix('facebook')->name('facebook.')->group( function(){
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 Route::get('/dashboard',[App\Http\Controllers\BackendController::class,'test'])->name('dashboard');
-//Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', App\Http\Controllers\RoleController::class);
     Route::resource('user', App\Http\Controllers\UserController::class);
-//});
+});

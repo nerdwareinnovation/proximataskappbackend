@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -57,8 +58,7 @@ class TaskController extends Controller
         $task->budget = $request->budget;
         $task->attachment = $request->attachment;
         $task->voice_note = $request->voice_note;
-        $task->delete_reason = $request->delete_reason;
-        $task->restore_reason = $request->restore_reason;
+
         if (isset($request->is_important)){
             $task->is_important=1;
         }else{
@@ -88,6 +88,37 @@ class TaskController extends Controller
             'message'=>"Task updated successfully",
             'status'=>200,
         ]);
+    }
+    public function isDeleted($id, Request $request)
+    {
+        $request->validate([
+          'delete_reason'=>'required'
+            ]);
+        $file = Task::find($id);
+        if (!$file) {
+            return response()->json(['message' => 'File not found.'], 404);
+
+        }
+        $file->update(['is_deleted' => true, 'deleted_at'=>Carbon::now(), 'delete_reason'=>$request->delete_reason]);
+        return response()->json(['message' => 'Activity deleted successfully.']);
+    }
+    public function isRestored($id, Request $request)
+    {
+        $request->validate([
+            'restore_reason'=>'required'
+        ]);
+        $file = Task::withTrashed()->find($id);
+        if (!$file) {
+            return response()->json(['message' => 'Activity not found.'], 404);
+
+        }
+        if ($file->is_deleted = false){
+            return response()->json(['message' => 'Activity cannot be restored.']);
+        }
+        elseif ($file->is_deleted = true){
+            $file->update(['is_deleted' => false,'is_restored'=>true,'restore_reason'=>$request->restore_reason]);
+        }
+        return response()->json(['message' => 'Activity restored successfully.']);
     }
 
     public function destroy($id){
