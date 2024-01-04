@@ -89,6 +89,20 @@ class TaskController extends Controller
             'status'=>200,
         ]);
     }
+    public function updateTask(Request $request, $id)
+    {
+        $request->validate([
+            'task_type_id' => 'required',
+        ]);
+        $task = Task::find($id);
+        $task->task_type_id = $request->task_type_id;
+        $task->save();
+        return response()->json([
+            'data'=> $task,
+            'message'=>"Task status updated successfully",
+            'status'=>200,
+        ]);
+    }
     public function isDeleted($id, Request $request)
     {
         $request->validate([

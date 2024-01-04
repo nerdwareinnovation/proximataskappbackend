@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GoogleController;
 use App\Http\Controllers\Api\NotesController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,7 +32,10 @@ Route::group(['middleware' => ['web']], function () {
 Route::middleware('auth:api')->group(function() {
     Route::resource('notes', NotesController::class);
     Route::resource('task', TaskController::class);
+    Route::delete('/task/{id}/delete',[TaskController::class,'isDeleted']);
+    Route::patch('/task/{id}/restore',[TaskController::class,'isRestored']);
+    Route::patch('/task/{id}/task-update',[TaskController::class,'updateTask']);
+    Route::patch('/user/{id}/update',[ProfileController::class,'updateProfile']);
 });
-Route::delete('/task/{id}/delete',[TaskController::class,'isDeleted']);
-Route::patch('/task/{id}/restore',[TaskController::class,'isRestored']);
-Route::get('/test',[TaskController::class,'test']);
+
+
