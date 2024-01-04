@@ -34,3 +34,4 @@ Route::middleware('auth:api')->group(function() {
 });
 Route::delete('/task/{id}/delete',[TaskController::class,'isDeleted']);
 Route::patch('/task/{id}/restore',[TaskController::class,'isRestored']);
+Route::get('/test',[TaskController::class,'test']);

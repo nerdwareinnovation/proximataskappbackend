@@ -117,13 +117,15 @@ class TaskController extends Controller
         }
         elseif ($file->is_deleted = true){
             $file->update(['is_deleted' => false,'is_restored'=>true,'restore_reason'=>$request->restore_reason]);
+            $file->restore();
         }
         return response()->json(['message' => 'Activity restored successfully.']);
     }
 
     public function destroy($id){
-        $task = Task::find($id);
-        $task->delete();
+        $task = Task::onlyTrashed()->find($id);
+//        dd($task);
+        $task->forceDelete();
 
         return response()->json([
             'data'=> $task,
