@@ -35,6 +35,14 @@ class TaskController extends Controller
             'status'=>200,
         ]);
     }
+    public function show($id)
+    {
+        $task = Task::find($id);
+        return response()->json([
+            'data'=> $task,
+            'status'=>200,
+        ]);
+    }
 
     public function update(Request $request, $id){
 
@@ -146,5 +154,16 @@ class TaskController extends Controller
             'message'=>"Task deleted successfully",
             'status'=>200,
         ]);
+    }
+
+    public function deletedTask()
+    {
+        $task = Task::onlyTrashed()->first();
+        return response()->json([
+            'data'=> $task,
+            'message'=>"Task deleted successfully",
+            'status'=>200,
+        ]);
+
     }
 }
