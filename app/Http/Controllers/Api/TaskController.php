@@ -163,10 +163,9 @@ class TaskController extends Controller
 
     public function deletedTask()
     {
-        $task = Task::onlyTrashed()->first();
+        $task = Task::onlyTrashed()->get();
         return response()->json([
             'data'=> $task,
-            'message'=>"Task deleted successfully",
             'status'=>200,
         ]);
 
@@ -177,7 +176,6 @@ class TaskController extends Controller
         $task = Task::where('is_completed', true)->get();
         return response()->json([
             'data'=> $task,
-            'message'=>"Completed Task successfully",
             'status'=>200,
         ]);
 
