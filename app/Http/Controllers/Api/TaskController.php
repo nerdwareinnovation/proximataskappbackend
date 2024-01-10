@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     public function index(){
-        $task = Task::all();
+        $task = Task::where('is_completed', false)->get();
         return response()->json([
             'data'=>$task,
             'status'=> 200
@@ -90,6 +90,11 @@ class TaskController extends Controller
         }else{
             $task->is_restored=0;
         }
+        if (isset($request->is_completed)){
+            $task->is_completed=1;
+        }else{
+            $task->is_completed=0;
+        }
         $task->save();
         return response()->json([
             'data'=> $task,
@@ -162,6 +167,17 @@ class TaskController extends Controller
         return response()->json([
             'data'=> $task,
             'message'=>"Task deleted successfully",
+            'status'=>200,
+        ]);
+
+    }
+
+    public function archive()
+    {
+        $task = Task::where('is_completed', true)->get();
+        return response()->json([
+            'data'=> $task,
+            'message'=>"Completed Task successfully",
             'status'=>200,
         ]);
 
