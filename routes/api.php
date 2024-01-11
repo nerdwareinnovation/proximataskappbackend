@@ -37,6 +37,7 @@ Route::middleware('auth:api')->group(function() {
     Route::patch('/task/{id}/task-update',[TaskController::class,'updateTask']);
     Route::get('/tasks/deleted',[TaskController::class,'deletedTask']);
     Route::get('/tasks/archive',[TaskController::class,'archive']);
+    Route::put('/tasks/{id}/complete',[TaskController::class,'isComplete']);
     Route::patch('/user/{id}/update',[ProfileController::class,'updateProfile']);
     Route::patch('/change-password',[ProfileController::class,'changePassword']);
     Route::post('/forgot-password',[ProfileController::class,'forgotPassword']);

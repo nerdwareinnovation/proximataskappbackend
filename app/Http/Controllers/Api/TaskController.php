@@ -68,32 +68,27 @@ class TaskController extends Controller
         $task->voice_note = $request->voice_note;
 
         if (isset($request->is_important)){
-            $task->is_important=1;
+            $task->is_important=$request->is_important;
         }else{
             $task->is_important=0;
         }
         if(isset($request->is_urgent)){
-        $task->is_urgent=1;
+        $task->is_urgent=$request->is_urgent;
         }
         else
         {
         $task->is_urgent = 0;
         }
         if(isset($request->set_remainder)){
-            $task->set_remainder = 1;
+            $task->set_remainder = $request->set_remainder;
         }
         else{
             $task->set_remainder =0;
         }
         if (isset($request->is_restored)){
-            $task->is_restored=1;
+            $task->is_restored=$request->is_restored;
         }else{
             $task->is_restored=0;
-        }
-        if (isset($request->is_completed)){
-            $task->is_completed=1;
-        }else{
-            $task->is_completed=0;
         }
         $task->save();
         return response()->json([
@@ -101,6 +96,22 @@ class TaskController extends Controller
             'message'=>"Task updated successfully",
             'status'=>200,
         ]);
+    }
+    public function isComplete($id, Request $request)
+    {
+        $task = Task::find($id);
+        if (isset($request->is_completed)){
+            $task->is_completed=$request->is_completed;
+        }else{
+            $task->is_completed=false;
+        }
+        $task->save();
+        return response()->json([
+            'data'=> $task,
+            'message'=>"Task Completed successfully",
+            'status'=>200,
+        ]);
+
     }
     public function updateTask(Request $request, $id)
     {
