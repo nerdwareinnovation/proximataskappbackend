@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     public function index(){
-        $task = Task::where('is_completed', false)->get();
+        $task = Task::get();
         return response()->json([
             'data'=>$task,
             'status'=> 200
