@@ -32,5 +32,5 @@ Route::get('/dashboard',[App\Http\Controllers\BackendController::class,'test'])-
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', App\Http\Controllers\RoleController::class);
     Route::resource('user', App\Http\Controllers\UserController::class);
-    Route::get('/task', [App\Http\Controllers\TaskController::class, 'index']);
+    Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->name('task');
 });

@@ -2163,7 +2163,7 @@
 																	<span class="path3"></span>
 																</i>
 															</span>
-															<span class="menu-title">User Management</span>
+															<span class="menu-title">Backend Management</span>
 															<span class="menu-arrow"></span>
 														</span>
                                                 <!--end:Menu link-->
@@ -2190,6 +2190,16 @@
 																		<span class="bullet bullet-dot"></span>
 																	</span>
                                                             <span class="menu-title">Roles</span>
+                                                        </a>
+                                                        <!--end:Menu link-->
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <!--begin:Menu link-->
+                                                        <a class="menu-link" href="{{route('task')}}">
+																	<span class="menu-bullet">
+																		<span class="bullet bullet-dot"></span>
+																	</span>
+                                                            <span class="menu-title">Task</span>
                                                         </a>
                                                         <!--end:Menu link-->
                                                     </div>

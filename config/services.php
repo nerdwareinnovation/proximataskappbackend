@@ -44,5 +44,9 @@ return [
         "client_id" => "<your_client_id>",
         "client_secret" => "<your_client_secret>",
     ],
+    'revenue'=>[
+        'api_id'=> env('REVENUE_CAT_API'),
+        'client_secret'=>env('REVENUE_CAT_SECRET')
+    ]
 
 ];

@@ -18,16 +18,22 @@
 @endsection
 @section('content')
 
-
-
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
         <!--begin::Container-->
+
 
         <div class="container-xxl" id="kt_content_container">
             <!--begin::Card-->
+            <div class="row g-5 g-xl-10 g-xl-10">
+
+                <div class="col-xxl-6 mb-md-5 mb-xl-n20">
+
+{{--                    <div class="row g-5 g-xl-10 g-xl-10">--}}
+
+{{--                        <div class="col-md-6 col-xl-6 mb-xxl-10">--}}
 
 
-            <div class="col-md-6 col-xl-6 mb-xxl-10">
                 <!--begin::Card widget 8-->
                 <!--end::Card widget 8-->
                 <!--begin::Card widget 5-->
@@ -39,7 +45,7 @@
                             <!--begin::Info-->
                             <div class="d-flex align-items-center">
                                 <!--begin::Amount-->
-                                <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">{{count($task->where('is_completed', true))}}</span>
+                                <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">{{$incompleteCount}}</span>
                                 <!--end::Amount-->
                                 <!--begin::Badge-->
                                 <span class="badge badge-light-danger fs-base">
@@ -64,7 +70,7 @@
                         <!--begin::Progress-->
                         <div class="d-flex align-items-center flex-column mt-3 w-100">
                             <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                                <span class="fw-bolder fs-6 text-dark">{{count($task->where('is_completed', false))}} task to complete</span>
+                                <span class="fw-bolder fs-6 text-dark">{{$incompleteCount}} task to complete</span>
                                 <span class="fw-bold fs-6 text-gray-400">
                                     {{$percentage}}%
                             </span>
@@ -79,11 +85,12 @@
                     <!--end::Card body-->
                 </div>
                 <!--end::Card widget 5-->
-            </div>
+                        </div>
 
-            <div class="col-md-6 col-xl-6 mb-xxl-10">
 
-            <div class="card card-flush h-md-50 mb-xl-10">
+                <div class="col-xl-4 mb-xl-20">
+
+            <div class="card card-flush h-md-50 mb-xl-20">
                 <!--begin::Header-->
                 <div class="card-header pt-5">
                     <!--begin::Title-->
@@ -102,8 +109,10 @@
 
                 <!--end::Card body-->
             </div>
+                </div>
+                <div class="col-xl-4 mb-xl-20">
 
-            <div class="card card-flush h-md-50 mb-xl-10">
+            <div class="card card-flush h-md-50 mb-xl-20">
                 <!--begin::Header-->
                 <div class="card-header pt-5">
                     <!--begin::Title-->
@@ -122,8 +131,10 @@
 
                 <!--end::Card body-->
             </div>
+                </div>
+                <div class="col-xl-4 mb-xl-20">
 
-                <div class="card card-flush h-md-50 mb-xl-10">
+                <div class="card card-flush h-md-50 mb-xl-20">
                     <!--begin::Header-->
                     <div class="card-header pt-5">
                         <!--begin::Title-->
@@ -142,7 +153,10 @@
 
                     <!--end::Card body-->
                 </div>
-                <div class="card card-flush h-md-50 mb-xl-10">
+                </div>
+                <div class="col-xl-4 mb-xl-20">
+
+                <div class="card card-flush h-md-50 mb-xl-20">
                     <!--begin::Header-->
                     <div class="card-header pt-5">
                         <!--begin::Title-->
@@ -161,7 +175,12 @@
 
                     <!--end::Card body-->
                 </div>
-            </div>
+                    </div>
+
+
+
+
+
 
 
             <div class="card">
@@ -451,6 +470,7 @@
                             <th class="min-w-125px">Due Date</th>
                             <th class="min-w-125px">Due Time Start</th>
                             <th class="min-w-125px">Due Time End</th>
+                            <th class="min-w-125px">Completed</th>
 {{--                            <th class="text-end min-w-100px">Actions</th>--}}
                         </tr>
                         </thead>
@@ -491,6 +511,21 @@
                                         <a href="#" class="text-gray-800 text-hover-primary mb-1">{{$record->due_time_end}}</a>
                                     </div>
                                 </td>
+                                <td>
+
+                                        <div class="d-flex flex-row-fluid flex-wrap align-items-center">
+
+                                            <span class="badge badge-light-success fs-8 fw-bold my-2">
+                                                @php
+                                                $status = $record->is_completed == 1 ? 'Completed' : 'Not Completed';
+                                                echo $status
+                                                @endphp
+                                            </span>
+
+                                        </div>
+
+                                </td>
+
 {{--                                <td class="text-end">--}}
 {{--                                    <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions--}}
 {{--                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>--}}
@@ -525,6 +560,7 @@
                 <!--end::Card body-->
             </div>
             <!--end::Card-->
+        </div>
         </div>
         <!--end::Container-->
     </div>
