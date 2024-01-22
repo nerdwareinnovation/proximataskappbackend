@@ -45,6 +45,10 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/reset-password',[ProfileController::class,'resetPassword']);
     Route::get('/entitlement/create/{lookup}/{display}',[EntitlementController::class,'createEntitlement']);
     Route::get('/entitlement/{entitlementId}',[EntitlementController::class,'getEntitlement']);
+    Route::get('/entitlement',[EntitlementController::class,'listEntitlement']);
+    Route::get('/entitlement/{entitlementId}/{productId}',[EntitlementController::class,'attachProducts']);
+    Route::get('/entitlement/{entitlementId}/{productId}',[EntitlementController::class,'detachProducts']);
+    Route::get('/entitlement/{entitlementId}/{productId}',[EntitlementController::class,'listProducts']);
     Route::post('/entitlement',[EntitlementController::class,'store']);
 });
 
