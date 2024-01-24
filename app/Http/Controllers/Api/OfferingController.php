@@ -43,13 +43,13 @@ class OfferingController extends Controller
         echo $response->getBody();
     }
 
-    public function listOffering($entitlement)
+    public function listOffering()
     {
 
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->request('GET', 'https://api.revenuecat.com/v2/projects/d5f483c5/offerings?starting_after='.$entitlement.'&limit=20&expand=items.package.product', [
+        $response = $client->request('GET', 'https://api.revenuecat.com/v2/projects/d5f483c5/offerings?&limit=20&expand=items.package.product', [
             'headers' => [
                 'accept' => 'application/json',
                 'authorization' => 'Bearer '.env('REVENUE_CAT_SECRET'),

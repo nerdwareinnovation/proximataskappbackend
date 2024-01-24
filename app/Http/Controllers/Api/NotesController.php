@@ -27,8 +27,16 @@ class NotesController extends Controller
              'note_title'=>'required'
             ]);
 
-        $input['user_id'] = auth()->user()->id;
-        $notes = Notes::create($input);
+
+        $notes = new Notes();
+        $notes['font']= $request->font;
+        $notes['theme']= $request->theme;
+        $notes['note']= $request->note;
+        $notes['user_id'] = auth()->user()->id;
+        $notes['note_title']= $request->note_title;
+        $notes['color_option']= $request->color_option;
+        $notes->save();
+
         return response()->json([
             'data'=> $notes,
             'message'=>"Notes Created successfully",

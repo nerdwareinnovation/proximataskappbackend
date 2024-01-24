@@ -17,7 +17,7 @@ class TaskController extends Controller
         ]);
     }
     public function store(Request $request){
-        $input = $request->all();
+        $task = $request->all();
         $request->validate([
             'task_type_id' => 'required',
             'task_title' => 'required',
@@ -27,8 +27,27 @@ class TaskController extends Controller
             'due_time_end' => 'required',
 
         ]);
-        $input['user_id'] = auth()->user()->id;
-        $task = Task::create($input);
+        $attachments = $request->file('file');
+
+        $path = public_path('attachments');
+        $attachments->move($path, $attachments->getClientOriginalName());
+
+        $voice_note = $request->file('file');
+
+        $path = public_path('voice_notes');
+        $voice_note->move($path, $voice_note->getClientOriginalName());
+
+        $task = new Task();
+        $task['task_type_id'] =$request->task_type_id;
+            $task['task_title'] = $request->task_title;
+            $task['task_requirements'] = $request->task_requirements;
+            $task['due_date']= $request->task_requirements;
+            $task['due_time_start'] =$request->due_time_start;
+            $task['user_id'] = auth()->user()->id;
+            $task['due_time_end'] = $request->due_time_end;
+            $task['attachments']=$attachments->getClientOriginalName();
+            $task['voice_note']=$voice_note->getClientOriginalName();
+            $task->save();
         return response()->json([
             'data'=> $task,
             'message'=>"Task created successfully",
