@@ -18,13 +18,13 @@ class PackageController extends Controller
         $package = $request->package_id;
         $this->getPackage($package);
         $this->update($display, $position, $package);
-        $this->getPackageswithOfferings($offerings, $entitlement);
+        $this->getPackagesWithOfferings($offerings, $entitlement);
         $this->delete($offerings);
         $this->listofPackages($package);
         $this->create($lookup, $display,$offerings,$position);
     }
 
-    public function getPackageswithOfferings($offerings)
+    public function getPackagesWithOfferings($offerings)
     {
 
 
