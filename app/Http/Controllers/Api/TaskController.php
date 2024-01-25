@@ -27,12 +27,13 @@ class TaskController extends Controller
             'due_time_end' => 'required',
 
         ]);
-        $attachments = $request->file('file');
+        $attachments = $request->file('attachment');
 
         $path = public_path('attachments');
+//        dd($attachments);
         $attachments->move($path, $attachments->getClientOriginalName());
 
-        $voice_note = $request->file('file');
+        $voice_note = $request->file('voice_note');
 
         $path = public_path('voice_notes');
         $voice_note->move($path, $voice_note->getClientOriginalName());
@@ -41,13 +42,14 @@ class TaskController extends Controller
         $task['task_type_id'] =$request->task_type_id;
             $task['task_title'] = $request->task_title;
             $task['task_requirements'] = $request->task_requirements;
-            $task['due_date']= $request->task_requirements;
+            $task['due_date']= $request->due_date;
             $task['due_time_start'] =$request->due_time_start;
             $task['user_id'] = auth()->user()->id;
             $task['due_time_end'] = $request->due_time_end;
-            $task['attachments']=$attachments->getClientOriginalName();
+            $task['attachment']=$attachments->getClientOriginalName();
             $task['voice_note']=$voice_note->getClientOriginalName();
             $task->save();
+
         return response()->json([
             'data'=> $task,
             'message'=>"Task created successfully",
