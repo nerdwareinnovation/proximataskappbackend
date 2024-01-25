@@ -16,7 +16,8 @@ class TaskController extends Controller
             'status'=> 200
         ]);
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $task = $request->all();
         $request->validate([
             'task_type_id' => 'required',
@@ -27,27 +28,36 @@ class TaskController extends Controller
             'due_time_end' => 'required',
 
         ]);
+
         $attachments = $request->file('attachment');
 
         $path = public_path('attachments');
 //        dd($attachments);
-        $attachments->move($path, $attachments->getClientOriginalName());
+        if ($attachments != NULL) {
+            $attachments->move($path, $attachments->getClientOriginalName());
+        }
 
         $voice_note = $request->file('voice_note');
 
         $path = public_path('voice_notes');
-        $voice_note->move($path, $voice_note->getClientOriginalName());
 
+        if ($voice_note != NULL) {
+            $voice_note->move($path, $voice_note->getClientOriginalName());
+        }
         $task = new Task();
-        $task['task_type_id'] =$request->task_type_id;
-            $task['task_title'] = $request->task_title;
-            $task['task_requirements'] = $request->task_requirements;
-            $task['due_date']= $request->due_date;
-            $task['due_time_start'] =$request->due_time_start;
-            $task['user_id'] = auth()->user()->id;
-            $task['due_time_end'] = $request->due_time_end;
-            $task['attachment']=$attachments->getClientOriginalName();
+        $task['task_type_id'] = $request->task_type_id;
+        $task['task_title'] = $request->task_title;
+        $task['task_requirements'] = $request->task_requirements;
+        $task['due_date'] = $request->due_date;
+        $task['due_time_start'] = $request->due_time_start;
+        $task['user_id'] = auth()->user()->id;
+        $task['due_time_end'] = $request->due_time_end;
+        if ($attachments != NULL){
+            $task['attachment'] = $attachments->getClientOriginalName();
+    }
+        if ($voice_note != NULL){
             $task['voice_note']=$voice_note->getClientOriginalName();
+        }
             $task->save();
 
         return response()->json([
