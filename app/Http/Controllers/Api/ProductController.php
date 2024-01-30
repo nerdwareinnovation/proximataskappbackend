@@ -26,6 +26,7 @@ class ProductController extends Controller
         ]);
 
         echo $response->getBody();
+        return view($response->getBody());
     }
     public function create()
     {
@@ -58,7 +59,7 @@ class ProductController extends Controller
     {
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->request('GET', 'https://api.revenuecat.com/v2/projects/d5f483c5/products/', [
+        $response = $client->request('GET', 'https://api.revenuecat.com/v2/projects/d5f483c5/products?limit=20', [
             'headers' => [
                 'accept' => 'application/json',
                 'authorization'=>'Bearer '.env('REVENUE_CAT_SECRET'),

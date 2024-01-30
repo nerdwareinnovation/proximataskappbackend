@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\EntitlementController;
 use App\Http\Controllers\Api\GoogleController;
 use App\Http\Controllers\Api\NotesController;
 use App\Http\Controllers\Api\OfferingController;
@@ -46,14 +45,6 @@ Route::middleware('auth:api')->group(function() {
     Route::patch('/change-password',[ProfileController::class,'changePassword']);
     Route::post('/forgot-password',[ProfileController::class,'forgotPassword']);
     Route::post('/reset-password',[ProfileController::class,'resetPassword']);
-    Route::get('/entitlement/create/{lookup}/{display}',[EntitlementController::class,'createEntitlement']);
-    Route::get('/entitlement/{entitlementId}',[EntitlementController::class,'getEntitlement']);
-    Route::get('/entitlement/delete/{entitlementId}',[EntitlementController::class,'delete']);
-    Route::get('/entitlement/{display]}/{entitlementId}',[EntitlementController::class,'update']);
-    Route::get('/entitlement',[EntitlementController::class,'listEntitlement']);
-    Route::get('/entitlement/attach/{entitlementId}/{productId}',[EntitlementController::class,'attachProducts']);
-    Route::get('/entitlement/detach/{entitlementId}/{productId}',[EntitlementController::class,'detachProducts']);
-    Route::get('/entitlement/{entitlementId}/{productId}',[EntitlementController::class,'listProducts']);
     Route::get('/product',[ProductController::class,'getList']);
     Route::get('/product/{product}',[ProductController::class,'get']);
     Route::get('/product/delete/{product}',[ProductController::class,'delete']);

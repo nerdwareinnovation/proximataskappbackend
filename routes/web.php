@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EntitlementController;
 use App\Http\Controllers\FaceBookController;
 use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Route;
@@ -33,4 +34,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', App\Http\Controllers\RoleController::class);
     Route::resource('user', App\Http\Controllers\UserController::class);
     Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->name('task');
+    Route::get('/entitlement',[EntitlementController::class,'listEntitlement'])->name('entitlement');
+    Route::get('/entitlement/create/{lookup}/{display}',[EntitlementController::class,'createEntitlement']);
+    Route::get('/entitlement/{entitlementId}',[EntitlementController::class,'getEntitlement'])->name('entitlement.get');
+    Route::get('/entitlement/delete/{entitlementId}',[EntitlementController::class,'delete'])->name('entitlement.delete');
+    Route::Post('/entitlement/{display}',[EntitlementController::class,'update'])->name('entitlement.update');
+    Route::get('/entitlement/attach/{entitlementId}/{productId}',[EntitlementController::class,'attachProducts']);
+    Route::get('/entitlement/detach/{entitlementId}/{productId}',[EntitlementController::class,'detachProducts']);
+    Route::get('/entitlement/{entitlementId}',[EntitlementController::class,'listProducts']);
 });
