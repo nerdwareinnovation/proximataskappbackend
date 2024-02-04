@@ -9,8 +9,8 @@ class EntitlementController extends Controller
 
     public function store(Request $request)
     {
-        $lookup=$request->lookup_key;
-        $display=$request->display_name;
+        $lookup=$request->session()->get('lookup_key');
+        $display=$request->session()->get('display_name');
         $productId=$request->product_ids;
         $entitlementId= $request->entitlement_id;
         $this->createEntitlement($display,$lookup);
@@ -20,13 +20,16 @@ class EntitlementController extends Controller
         $this->detachProducts($entitlementId, $productId);
         $this->listProducts($entitlementId);
         $this->delete($entitlementId);
+        return redirect()->back();
     }
-    public function createEntitlement($lookup, $display)
+    public function createEntitlement(Request $request)
     {
 
         $client = new \GuzzleHttp\Client();
 //
 //        dd($key);
+        $lookup= $request->lookup_key;
+        $display=$request->display_name;
         $body = [
             'lookup_key'=> $lookup,
             'display_name'=>$display,
@@ -38,13 +41,13 @@ class EntitlementController extends Controller
             'headers' => [
                 'authorization'=>'Bearer '.env('REVENUE_CAT_SECRET'),
 
-        'accept' => 'application/json',
+//        'accept' => 'application/json',
                 'content-type' => 'application/json',
             ],
         ]);
         $bodyContent = json_decode( $response->getBody()->getContents());
 //        dd($items);
-        return view('backend.revenueCat.entitlement.index');
+        return redirect('/entitlement');
 
 
     }
@@ -69,6 +72,8 @@ class EntitlementController extends Controller
     }
     public function listEntitlement()
     {
+
+
         $client = new \GuzzleHttp\Client();
 
         $response = $client->request('GET', 'https://api.revenuecat.com/v2/projects/d5f483c5/entitlements?limit=20', [
@@ -84,10 +89,10 @@ class EntitlementController extends Controller
 //        dd($items);
         return view('backend.revenueCat.entitlement.index')->with(compact('items'));
     }
-    public function update($entitlementId, $display)
+    public function update($entitlementId, Request $request )
     {
         $client = new \GuzzleHttp\Client();
-
+        $display = $request->display_name;
         $body = [
             'display_name'=>$display,
         ];
@@ -120,12 +125,13 @@ class EntitlementController extends Controller
             ],
         ]);
 
-        echo $response->getBody();
+        return redirect('/entitlement');
     }
-    public function attachProducts($entitlementId, $productId)
+    public function attachProducts($entitlementId, Request $request)
     {
 
         $client = new \GuzzleHttp\Client();
+        $productId = $request -> product_ids;
         $body =[
             'product_ids'=>array($productId),
         ];
@@ -143,10 +149,10 @@ class EntitlementController extends Controller
         echo $response->getBody();
     }
 
-    public function detachProducts($entitlementId, $productId)
+    public function detachProducts($entitlementId, Request $request)
     {
         $client = new \GuzzleHttp\Client();
-
+        $productId = $request -> product_ids;
         $body =[
         'product_ids'=>array($productId),
     ];
@@ -174,7 +180,9 @@ class EntitlementController extends Controller
             ],
         ]);
 
-        echo $response->getBody();
+        $bodyContent = json_decode( $response->getBody()->getContents());
+        $items= $bodyContent->items;
+        return view('backend.revenueCat.entitlement.listProducts',compact('items'));
     }
 
 }

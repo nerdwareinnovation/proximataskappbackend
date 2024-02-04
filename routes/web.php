@@ -35,11 +35,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('user', App\Http\Controllers\UserController::class);
     Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->name('task');
     Route::get('/entitlement',[EntitlementController::class,'listEntitlement'])->name('entitlement');
-    Route::get('/entitlement/create/{lookup}/{display}',[EntitlementController::class,'createEntitlement']);
-    Route::get('/entitlement/{entitlementId}',[EntitlementController::class,'getEntitlement'])->name('entitlement.get');
+    Route::post('/entitlement/create',[EntitlementController::class,'createEntitlement'])->name('createEntitlement');
+    Route::get('/entitlement/get/{entitlementId}',[EntitlementController::class,'getEntitlement'])->name('entitlement.get');
     Route::get('/entitlement/delete/{entitlementId}',[EntitlementController::class,'delete'])->name('entitlement.delete');
-    Route::Post('/entitlement/{display}',[EntitlementController::class,'update'])->name('entitlement.update');
-    Route::get('/entitlement/attach/{entitlementId}/{productId}',[EntitlementController::class,'attachProducts']);
-    Route::get('/entitlement/detach/{entitlementId}/{productId}',[EntitlementController::class,'detachProducts']);
-    Route::get('/entitlement/{entitlementId}',[EntitlementController::class,'listProducts']);
-});
+    Route::post('/entitlement/update/{entitlementId}',[EntitlementController::class,'update'])->name('entitlement.update');
+    Route::get('/entitlement/attach/{entitlementId}',[EntitlementController::class,'attachProducts'])->name('attachProducts');
+    Route::get('/entitlement/detach/{entitlementId}',[EntitlementController::class,'detachProducts'])->name('detachProducts');
+    Route::get('/entitlement/{entitlementId}',[EntitlementController::class,'listProducts'])->name('listProducts');
+;});

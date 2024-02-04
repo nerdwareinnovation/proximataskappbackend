@@ -50,8 +50,8 @@
             <!--begin::Card body-->
             <div class="card-body pt-5">
                 <!--begin::Form-->
-{{--                <form id="kt_ecommerce_settings_general_form" class="form" action="{{route('user.update',$user->id)}}" method="post">--}}
-{{--                    @csrf--}}
+                <form id="kt_ecommerce_settings_general_form" class="form" action="{{route('entitlement.update',$items->id)}}" method="post">
+                    @csrf
 {{--                    @method('PUT')--}}
                     <!--begin::Input group-->
                     <!--end::Input group-->
@@ -71,8 +71,10 @@
                         <!--end::Label-->
                         <!--begin::Input-->
                         <input type="text" class="form-control form-control-solid" name="display_name" value="{{$items->display_name}}" />
+
                         <!--end::Input-->
                     </div>
+
                     <!--end::Input group-->
                     <!--begin::Input group-->
                     <!--end::Input group-->
@@ -88,16 +90,19 @@
                         <button type="reset" data-kt-contacts-type="cancel" class="btn btn-light me-3">Cancel</button>
                         <!--end::Button-->
                         <!--begin::Button-->
-                        <a href="{{route('entitlement.update',$items->id,$items->display_name)}}"  data-kt-contacts-type="submit" class="btn btn-primary">
+                        <button type="submit"  data-kt-contacts-type="submit" class="btn btn-primary">
                             <span class="indicator-label">Save</span>
                             <span class="indicator-progress">Please wait...
 														<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </a>
+                        </button>
                         <!--end::Button-->
                     </div>
                     <!--end::Action buttons-->
+                    </div>
+                </form>
                 <!--end::Form-->
             </div>
+
             <!--end::Card body-->
         </div>
         <!--end::Contacts-->
