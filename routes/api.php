@@ -5,9 +5,9 @@ use App\Http\Controllers\Api\GoogleController;
 use App\Http\Controllers\Api\NotesController;
 use App\Http\Controllers\Api\OfferingController;
 use App\Http\Controllers\Api\PackageController;
-use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TaskController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,10 +45,6 @@ Route::middleware('auth:api')->group(function() {
     Route::patch('/change-password',[ProfileController::class,'changePassword']);
     Route::post('/forgot-password',[ProfileController::class,'forgotPassword']);
     Route::post('/reset-password',[ProfileController::class,'resetPassword']);
-    Route::get('/product',[ProductController::class,'getList']);
-    Route::get('/product/{product}',[ProductController::class,'get']);
-    Route::get('/product/delete/{product}',[ProductController::class,'delete']);
-    Route::get('/product/create',[ProductController::class,'create']);
     Route::get('/offering/create/{lookup}/{display}',[OfferingController::class,'createOffering']);
     Route::get('/offering',[OfferingController::class,'listOffering']);
     Route::get('/offering/{offerings}',[OfferingController::class,'getOfferings']);

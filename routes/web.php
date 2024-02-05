@@ -3,6 +3,7 @@
 use App\Http\Controllers\EntitlementController;
 use App\Http\Controllers\FaceBookController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,9 +38,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/entitlement',[EntitlementController::class,'listEntitlement'])->name('entitlement');
     Route::post('/entitlement/create',[EntitlementController::class,'createEntitlement'])->name('createEntitlement');
     Route::get('/entitlement/get/{entitlementId}',[EntitlementController::class,'getEntitlement'])->name('entitlement.get');
+    Route::get('/entitlement/attach/{entitlementId}',[EntitlementController::class,'getProducts'])->name('entitlement.attach');
+    Route::get('/entitlement/detach/{entitlementId}',[EntitlementController::class,'detach'])->name('entitlement.detach');
     Route::get('/entitlement/delete/{entitlementId}',[EntitlementController::class,'delete'])->name('entitlement.delete');
     Route::post('/entitlement/update/{entitlementId}',[EntitlementController::class,'update'])->name('entitlement.update');
-    Route::get('/entitlement/attach/{entitlementId}',[EntitlementController::class,'attachProducts'])->name('attachProducts');
-    Route::get('/entitlement/detach/{entitlementId}',[EntitlementController::class,'detachProducts'])->name('detachProducts');
+    Route::post('/entitlement/attach',[EntitlementController::class,'attachProducts'])->name('attachProducts');
+    Route::post('/entitlement/detach',[EntitlementController::class,'detachProducts'])->name('detachProducts');
     Route::get('/entitlement/{entitlementId}',[EntitlementController::class,'listProducts'])->name('listProducts');
+    Route::get('/product',[ProductController::class,'getList'])->name('getList');
+    Route::get('/product/{product}',[ProductController::class,'get'])->name('getProducts');
+    Route::get('/product/delete/{product}',[ProductController::class,'delete'])->name('deleteProducts');
+    Route::post('/product/create',[ProductController::class,'create'])->name('createProducts');
 ;});

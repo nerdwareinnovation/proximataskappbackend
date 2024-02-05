@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -25,21 +24,34 @@ class ProductController extends Controller
             ],
         ]);
 
-        echo $response->getBody();
-        return view($response->getBody());
+        $bodyContent = json_decode( $response->getBody()->getContents());
+        $items= $bodyContent;
+        return view('backend.revenueCat.products.get')->with(compact('items'));
     }
-    public function create()
+    public function create(Request $request)
     {
         $client = new \GuzzleHttp\Client();
+        $app= $request->app_id;
+        $display=$request->display_name;
+        $store = $request->store_identifier;
+        $type = $request->type;
 
-        $response = $client->request('POST', 'https://api.revenuecat.com/v2/projects/d5f483c5/products/', [
+        $body = [
+            'store_identifier'=> $store,
+            'display_name'=>$display,
+            'type'=>$type,
+            'app_id'=>$app,
+        ];
+        $response = $client->request('POST', 'https://api.revenuecat.com/v2/projects/d5f483c5/products', [
+            'body' =>json_encode($body),
             'headers' => [
                 'accept' => 'application/json',
                 'authorization'=>'Bearer '.env('REVENUE_CAT_SECRET'),
+                'content-type' => 'application/json',
             ],
         ]);
 
-        echo $response->getBody();
+        return redirect('/product');
     }
     public function delete($product)
     {
@@ -52,7 +64,7 @@ class ProductController extends Controller
             ],
         ]);
 
-        echo $response->getBody();
+       return redirect('/entitlement');
     }
 
     public function getList()
@@ -66,6 +78,10 @@ class ProductController extends Controller
             ],
         ]);
 
-        echo $response->getBody();
+        $bodyContent = json_decode( $response->getBody()->getContents());
+        $items= $bodyContent->items;
+//        dd($items);
+        return view('backend.revenueCat.products.index')->with(compact('items'));
+
     }
 }

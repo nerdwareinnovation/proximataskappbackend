@@ -9,9 +9,9 @@
             <li class="breadcrumb-item text-muted">
                 <a href="{{url('dashboard')}}" class="text-muted text-hover-primary">Home</a>
             </li>
-            <li class="breadcrumb-item text-muted">Entitlement Management</li>
-            <li class="breadcrumb-item text-muted">Entitlement</li>
-            <li class="breadcrumb-item text-dark">Entitlement List</li>
+            <li class="breadcrumb-item text-muted">Product Management</li>
+            <li class="breadcrumb-item text-muted">Product</li>
+            <li class="breadcrumb-item text-dark">Product List</li>
         </ul>
         <!--end::Breadcrumb-->
     </div>
@@ -91,10 +91,10 @@
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>Export</button>
-{{--                            <!--end::Export-->--}}
-{{--                            <!--begin::Add user-->--}}
+                            {{--                            <!--end::Export-->--}}
+                            {{--                            <!--begin::Add user-->--}}
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
-                                <i class="ki-duotone ki-plus fs-2"></i>Create Entitlement</button>
+                                <i class="ki-duotone ki-plus fs-2"></i>Create Product</button>
                             <!--end::Add user-->
                         </div>
                         <!--end::Toolbar-->
@@ -104,12 +104,12 @@
                                 <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected</div>
                             <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete Selected</button>
                         </div>
-{{--                        <!--end::Group actions-->--}}
-{{--                        <!--begin::Modal - Adjust Balance-->--}}
+                        {{--                        <!--end::Group actions-->--}}
+                        {{--                        <!--begin::Modal - Adjust Balance-->--}}
                         <div class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
-{{--                            <!--begin::Modal dialog-->--}}
+                            {{--                            <!--begin::Modal dialog-->--}}
                             <div class="modal-dialog modal-dialog-centered mw-650px">
-{{--                                <!--begin::Modal content-->--}}
+                                {{--                                <!--begin::Modal content-->--}}
                                 <div class="modal-content">
                                     <!--begin::Modal header-->
                                     <div class="modal-header">
@@ -192,7 +192,7 @@
                                     <!--begin::Modal body-->
                                     <div class="modal-body px-5 my-7">
                                         <!--begin::Form-->
-                                        <form id="kt_modal_add_user_form" class="form" action="{{route('createEntitlement')}}" method="post">
+                                        <form id="kt_modal_add_user_form" class="form" action="{{route('createProducts')}}" method="post">
                                             @csrf
                                             <!--begin::Scroll-->
                                             <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
@@ -211,19 +211,36 @@
                                                 <!--begin::Input group-->
                                                 <div class="fv-row mb-7">
                                                     <!--begin::Label-->
-                                                    <label class="required fw-semibold fs-6 mb-2">Lookup Key</label>
+                                                    <label class="required fw-semibold fs-6 mb-2">Store Identifier</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" name="lookup_key" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="premium" />
+                                                    <input type="text" name="store_identifier" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="one_month_gold:1mg" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="required fw-semibold fs-6 mb-2">App ID</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="app_id" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="app1a2b3c4" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="required fw-semibold fs-6 mb-2">Type</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="type" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="subscription or one_time" />
                                                     <!--end::Input-->
                                                 </div>
 
-                                                        <!--end::Radio-->
-                                                    </div>
-                                                    <!--end::Input row-->
-                                                    <!--end::Roles-->
 
-                                                <!--end::Input group-->
+                                                <!--end::Radio-->
+                                            </div>
+                                            <!--end::Input row-->
+                                            <!--end::Roles-->
+
+                                            <!--end::Input group-->
 
                                             <!--end::Scroll-->
                                             <!--begin::Actions-->
@@ -262,14 +279,16 @@
                                 </div>
                             </th>
                             <th class="min-w-125px">No</th>
+                            <th class="min-w-125px">App ID</th>
                             <th class="min-w-125px">Object</th>
-                            <th class="min-w-125px">Lookup Key</th>
+                            <th class="min-w-125px">Store Identifier</th>
                             <th class="min-w-125px">Display Name</th>
+                            <th class="min-w-125px">Type</th>
                             <th class="text-end min-w-100px">Actions</th>
                         </tr>
                         </thead>
                         <tbody class="text-gray-600 fw-semibold">
-{{--                        @dd($items)--}}
+                        {{--                        @dd($items)--}}
                         @foreach ($items as $ent)
                             <tr>
                                 <td>
@@ -278,6 +297,7 @@
                                     </div>
                                 </td>
                                 <td>{{ $ent->id }}</td>
+                                <td>{{ $ent->app_id }}</td>
                                 <td class="d-flex align-items-center">
                                     <!--begin::User details-->
                                     <div class="d-flex flex-column">
@@ -287,8 +307,9 @@
                                     <!--begin::User details-->
                                 </td>
 
-                                <td>{{$ent->lookup_key}}</td>
+                                <td>{{$ent->store_identifier}}</td>
                                 <td>{{$ent->display_name}}</td>
+                                <td>{{$ent->type}}</td>
 
 
                                 <td class="text-end">
@@ -298,21 +319,12 @@
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="{{ route('entitlement.get',$ent->id) }}" class="menu-link px-3">Edit</a>
-                                        </div>
-                                        <div class="menu-item px-3">
-                                            <a href="{{ route('listProducts',$ent->id) }}" class="menu-link px-3">List Products</a>
-                                        </div>
-                                        <div class="menu-item px-3">
-                                            <a href="{{ route('entitlement.attach',$ent->id) }}" class="menu-link px-3">Attach Products</a>
-                                        </div>
-                                        <div class="menu-item px-3">
-                                            <a href="{{ route('entitlement.detach',$ent->id) }}" class="menu-link px-3">Detach Products</a>
+                                            <a href="{{ route('getProducts',$ent->id) }}" class="menu-link px-3">Get Products</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="{{route('entitlement.delete',$ent->id)}}"  class="menu-link px-3">
+                                            <a href="{{route('deleteProducts',$ent->id)}}"  class="menu-link px-3">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger" type="submit">Delete</button></a>
