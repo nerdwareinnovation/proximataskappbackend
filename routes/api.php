@@ -3,11 +3,8 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GoogleController;
 use App\Http\Controllers\Api\NotesController;
-use App\Http\Controllers\Api\OfferingController;
-use App\Http\Controllers\Api\PackageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TaskController;
-use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,17 +42,6 @@ Route::middleware('auth:api')->group(function() {
     Route::patch('/change-password',[ProfileController::class,'changePassword']);
     Route::post('/forgot-password',[ProfileController::class,'forgotPassword']);
     Route::post('/reset-password',[ProfileController::class,'resetPassword']);
-    Route::get('/offering/create/{lookup}/{display}',[OfferingController::class,'createOffering']);
-    Route::get('/offering',[OfferingController::class,'listOffering']);
-    Route::get('/offering/{offerings}',[OfferingController::class,'getOfferings']);
-    Route::get('/offering/{display}/{current}',[OfferingController::class,'update']);
-    Route::get('/offering/delete/{offerings}',[OfferingController::class,'delete']);
-    Route::get('/package/{offerings}',[PackageController::class,'getPackagesWithOfferings']);
-    Route::get('/package/{offerings}/{lookup}/{display}/{position}',[PackageController::class,'create']);
-    Route::get('/package/{packages}',[PackageController::class,'getPackage']);
-    Route::get('/package/{display}/{position}/{package}',[PackageController::class,'update']);
-    Route::get('/package/delete/{package}',[PackageController::class,'delete']);
-    Route::get('/package/{package}',[PackageController::class,'listofPackages']);
 });
 
 

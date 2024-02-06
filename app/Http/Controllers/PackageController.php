@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
@@ -21,7 +20,7 @@ class PackageController extends Controller
         $this->getPackagesWithOfferings($offerings, $entitlement);
         $this->delete($offerings);
         $this->listofPackages($package);
-        $this->create($lookup, $display,$offerings,$position);
+        $this->create($offerings);
     }
 
     public function getPackagesWithOfferings($offerings)
@@ -40,10 +39,13 @@ class PackageController extends Controller
         echo $response->getBody();
     }
 
-    public function create($lookup , $display, $offerings, $position)
+    public function create( $offerings, Request $request)
     {
 
         $client = new \GuzzleHttp\Client();
+        $display=$request->display_name;
+        $lookup=$request->lookup_key;
+        $position=$request->position;
 
         $body = [
             'lookup_key'=> $lookup,
@@ -61,7 +63,8 @@ class PackageController extends Controller
             ],
         ]);
 
-        echo $response->getBody();
+        return redirect('/package');
+
     }
 
     public function getPackage($package)
@@ -79,11 +82,12 @@ class PackageController extends Controller
         echo $response->getBody();
     }
 
-    public function update($display, $position, $package)
+    public function update(Request $request, $package)
     {
 
         $client = new \GuzzleHttp\Client();
-
+        $display=$request->display_name;
+        $position=$request->position;
         $body = [
             'display_name'=>$display,
             'position'=>$position
@@ -98,7 +102,8 @@ class PackageController extends Controller
             ],
         ]);
 
-        echo $response->getBody();
+        return redirect('/package');
+
     }
 
     public function delete($package)
@@ -112,7 +117,7 @@ class PackageController extends Controller
             ],
         ]);
 
-        echo $response->getBody();
+       return redirect('/package');
     }
 
     public function listofPackages($package)

@@ -3,6 +3,8 @@
 use App\Http\Controllers\EntitlementController;
 use App\Http\Controllers\FaceBookController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\OfferingController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,4 +51,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/product/{product}',[ProductController::class,'get'])->name('getProducts');
     Route::get('/product/delete/{product}',[ProductController::class,'delete'])->name('deleteProducts');
     Route::post('/product/create',[ProductController::class,'create'])->name('createProducts');
+    Route::post('/offering/create',[OfferingController::class,'createOffering'])->name('createOffering');
+    Route::get('/offering',[OfferingController::class,'listOffering'])->name('listOfferings');
+    Route::get('/offering/{offerings}',[OfferingController::class,'getOfferings'])->name('getOfferings');
+    Route::post('/offering/update/{offerings}',[OfferingController::class,'update'])->name('updateOfferings');
+    Route::get('/offering/delete/{offerings}',[OfferingController::class,'delete'])->name('deleteOfferings');
+    Route::get('/package/{offerings}',[PackageController::class,'getPackagesWithOfferings']);
+    Route::get('/package/{offerings}/{lookup}/{display}/{position}',[PackageController::class,'create']);
+    Route::get('/package/{packages}',[PackageController::class,'getPackage']);
+    Route::get('/package/{display}/{position}/{package}',[PackageController::class,'update']);
+    Route::get('/package/delete/{package}',[PackageController::class,'delete']);
+    Route::get('/package/{package}',[PackageController::class,'listofPackages']);
 ;});
