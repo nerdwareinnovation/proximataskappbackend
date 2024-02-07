@@ -8,19 +8,15 @@ class PackageController extends Controller
 {
     public function store(Request $request)
     {
-        $entitlement = $request->entitlement_id;
-        $lookup=$request->lookup_key;
-        $display=$request->display_name;
         $offerings = $request->offering_id;
-        $current = $request->is_current;
-        $position= $request->position;
         $package = $request->package_id;
         $this->getPackage($package);
-        $this->update($display, $position, $package);
-        $this->getPackagesWithOfferings($offerings, $entitlement);
+        $this->update($package);
+        $this->getPackagesWithOfferings($offerings);
         $this->delete($offerings);
         $this->listofPackages($package);
-        $this->create($offerings);
+        $this->attach($package);
+        $this->detach($package);
     }
 
     public function getPackagesWithOfferings($offerings)
@@ -36,21 +32,25 @@ class PackageController extends Controller
             ],
         ]);
 
-        echo $response->getBody();
+        $bodyContent = json_decode( $response->getBody()->getContents());
+        $items= $bodyContent->items;
+//        dd($items);
+        return view('backend.revenueCat.package.index')->with(compact('items'));
     }
 
-    public function create( $offerings, Request $request)
+    public function create( Request $request)
     {
 
         $client = new \GuzzleHttp\Client();
         $display=$request->display_name;
+        $offerings=$request->offering_id;
         $lookup=$request->lookup_key;
-        $position=$request->position;
+        $position=$request->integer('position');
 
         $body = [
             'lookup_key'=> $lookup,
             'display_name'=>$display,
-            'position'=>$position
+            'position'=>$position,
         ];
 
         $response = $client->request('POST', 'https://api.revenuecat.com/v2/projects/d5f483c5/offerings/'.$offerings.'/packages', [
@@ -63,7 +63,7 @@ class PackageController extends Controller
             ],
         ]);
 
-        return redirect('/package');
+        return redirect()->back();
 
     }
 
@@ -78,8 +78,11 @@ class PackageController extends Controller
                 'content-type' => 'application/json',
             ],
         ]);
+        $items = json_decode( $response->getBody()->getContents());
 
-        echo $response->getBody();
+//        dd($items);
+        return view('backend.revenueCat.package.edit')->with(compact('items'));
+
     }
 
     public function update(Request $request, $package)
@@ -87,7 +90,7 @@ class PackageController extends Controller
 
         $client = new \GuzzleHttp\Client();
         $display=$request->display_name;
-        $position=$request->position;
+        $position=$request->integer('position');
         $body = [
             'display_name'=>$display,
             'position'=>$position
@@ -102,7 +105,7 @@ class PackageController extends Controller
             ],
         ]);
 
-        return redirect('/package');
+        return redirect('/offering');
 
     }
 
@@ -117,7 +120,7 @@ class PackageController extends Controller
             ],
         ]);
 
-       return redirect('/package');
+       return redirect()->back();
     }
 
     public function listofPackages($package)
@@ -131,6 +134,90 @@ class PackageController extends Controller
             ],
         ]);
 
-        echo $response->getBody();
+        $bodyContent = json_decode( $response->getBody()->getContents());
+        $items= array($bodyContent->items[0]->product);
+
+//        dd($items);
+        return view('backend.revenueCat.package.list', compact('items'));
+    }
+    public function attachPackage( Request $request)
+    {
+        $client = new \GuzzleHttp\Client();
+        $package = $request->package_id;
+//        dd($package);
+        $products = array('product_id'=>$request->product_id, 'eligibility_criteria'=>$request->eligibility_criteria);
+
+
+        $body =[
+            'products'=>array($products),
+        ];
+//        dd($body);
+        $response = $client->request('POST', 'https://api.revenuecat.com/v2/projects/d5f483c5/packages/'.$package.'/actions/attach_products', [
+            'body' =>json_encode($body),
+            'headers' => [
+                'accept' => 'application/json',
+                'content-type' => 'application/json',
+                'authorization' => 'Bearer '.env('REVENUE_CAT_SECRET'),
+            ],
+            ]);
+        return redirect('/offering');
+    }
+    public function detachPackage(Request $request)
+    {
+        $client = new \GuzzleHttp\Client();
+        $package = $request->package_id;
+
+        $product = $request->product_ids;
+
+        $body =[
+            'product_ids'=>array($product),
+        ];
+        $response = $client->request('POST', 'https://api.revenuecat.com/v2/projects/d5f483c5/packages/'.$package.'/actions/detach_products', [
+            'body' =>json_encode($body),
+            'headers' => [
+                'accept' => 'application/json',
+                'content-type' => 'application/json',
+                'authorization' => 'Bearer '.env('REVENUE_CAT_SECRET'),
+            ],
+            ]);
+        return redirect('/offering');
+    }
+    public function detach($package)
+    {
+
+//        require_once('vendor/autoload.php');
+
+        $client = new \GuzzleHttp\Client();
+
+
+        $response = $client->request('GET', 'https://api.revenuecat.com/v2/projects/d5f483c5/packages/'.$package, [
+            'headers' => [
+                'accept' => 'application/json',
+                'authorization' => 'Bearer '.env('REVENUE_CAT_SECRET'),
+            ],
+        ]);
+        $items = json_decode( $response->getBody()->getContents());
+
+//        dd($items);
+        return view('backend.revenueCat.package.detach')->with(compact('items'));
+    }
+    public function attach($package)
+    {
+
+//        require_once('vendor/autoload.php');
+
+        $client = new \GuzzleHttp\Client();
+
+
+        $response = $client->request('GET', 'https://api.revenuecat.com/v2/projects/d5f483c5/packages/'.$package, [
+            'headers' => [
+                'accept' => 'application/json',
+                'authorization' => 'Bearer '.env('REVENUE_CAT_SECRET'),
+            ],
+        ]);
+        $items = json_decode( $response->getBody()->getContents());
+
+//        dd($items);
+        return view('backend.revenueCat.package.attach')->with(compact('items'));
     }
 }

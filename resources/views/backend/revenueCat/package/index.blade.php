@@ -9,9 +9,9 @@
             <li class="breadcrumb-item text-muted">
                 <a href="{{url('dashboard')}}" class="text-muted text-hover-primary">Home</a>
             </li>
-            <li class="breadcrumb-item text-muted">Offering Management</li>
-            <li class="breadcrumb-item text-muted">Offering</li>
-            <li class="breadcrumb-item text-dark">Offering List</li>
+            <li class="breadcrumb-item text-muted">Packages Management</li>
+            <li class="breadcrumb-item text-muted">Package</li>
+            <li class="breadcrumb-item text-dark">Package List</li>
         </ul>
         <!--end::Breadcrumb-->
     </div>
@@ -192,7 +192,7 @@
                                     <!--begin::Modal body-->
                                     <div class="modal-body px-5 my-7">
                                         <!--begin::Form-->
-                                        <form id="kt_modal_add_user_form" class="form" action="{{route('createOffering')}}" method="post">
+                                        <form id="kt_modal_add_user_form" class="form" action="{{route('createPackages')}}" method="post">
                                             @csrf
                                             <!--begin::Scroll-->
                                             <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
@@ -201,10 +201,18 @@
                                                 <!--begin::Input group-->
                                                 <div class="fv-row mb-7">
                                                     <!--begin::Label-->
+                                                    <label class="required fw-semibold fs-6 mb-2">Offering ID</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="offering_id" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="monthly" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
                                                     <label class="required fw-semibold fs-6 mb-2">Display Name</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" name="display_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="The standard set of packages" />
+                                                    <input type="text" name="display_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="monthly" />
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -214,7 +222,15 @@
                                                     <label class="required fw-semibold fs-6 mb-2">Lookup Key</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" name="lookup_key" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="default" />
+                                                    <input type="text" name="lookup_key" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="monthly with one-week trial" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="required fw-semibold fs-6 mb-2">Position</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="position" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="1" />
                                                     <!--end::Input-->
                                                 </div>
 
@@ -265,13 +281,14 @@
                             <th class="min-w-125px">Object</th>
                             <th class="min-w-125px">Lookup Key</th>
                             <th class="min-w-125px">Display Name</th>
-                            <th class="min-w-125px">Is Current</th>
+                            <th class="min-w-125px">Position</th>
                             <th class="text-end min-w-100px">Actions</th>
                         </tr>
                         </thead>
                         <tbody class="text-gray-600 fw-semibold">
-                        {{--                        @dd($items)--}}
+{{--                                                @dd($items)--}}
                         @foreach ($items as $ent)
+
                             <tr>
                                 <td>
                                     <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -290,7 +307,7 @@
 
                                 <td>{{$ent->lookup_key}}</td>
                                 <td>{{$ent->display_name}}</td>
-                                <td>{{$ent->is_current}}</td>
+                                <td>{{$ent->position}}</td>
                                 <td class="text-end">
                                     <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                         <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
@@ -298,15 +315,21 @@
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="{{ route('getOfferings',$ent->id) }}" class="menu-link px-3">Edit</a>
+                                            <a href="{{ route('getPackages',$ent->id) }}" class="menu-link px-3">Edit</a>
                                         </div>
                                         <div class="menu-item px-3">
-                                            <a href="{{ route('getPackagesWithOfferings',$ent->id) }}" class="menu-link px-3">Packages list</a>
+                                            <a href="{{ route('listOfPackages',$ent->id) }}" class="menu-link px-3">List of products</a>
+                                        </div>
+                                        <div class="menu-item px-3">
+                                            <a href="{{ route('attach.package',$ent->id) }}" class="menu-link px-3">Attach</a>
+                                        </div>
+                                        <div class="menu-item px-3">
+                                            <a href="{{ route('detach.package',$ent->id) }}" class="menu-link px-3">Detach</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="{{route('deleteOfferings',$ent->id)}}"  class="menu-link px-3">
+                                            <a href="{{route('deletePackages',$ent->id)}}"  class="menu-link px-3">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger" type="submit">Delete</button></a>

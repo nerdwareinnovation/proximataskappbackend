@@ -2,16 +2,16 @@
 @section('breadcrumbs')
     <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap mt-n5 mt-lg-0 me-lg-2 pb-2 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
         <!--begin::Heading-->
-        <h1 class="text-dark fw-bold my-0 fs-2">User List</h1>
+        <h1 class="text-dark fw-bold my-0 fs-2">List of products attached to a given package of an offering</h1>
         <!--end::Heading-->
         <!--begin::Breadcrumb-->
         <ul class="breadcrumb fw-semibold fs-base my-1">
             <li class="breadcrumb-item text-muted">
                 <a href="{{url('dashboard')}}" class="text-muted text-hover-primary">Home</a>
             </li>
-            <li class="breadcrumb-item text-muted">Offering Management</li>
-            <li class="breadcrumb-item text-muted">Offering</li>
-            <li class="breadcrumb-item text-dark">Offering List</li>
+            <li class="breadcrumb-item text-muted">List of products attached Management</li>
+            <li class="breadcrumb-item text-muted">List of products attached</li>
+            <li class="breadcrumb-item text-dark">products attached</li>
         </ul>
         <!--end::Breadcrumb-->
     </div>
@@ -190,55 +190,46 @@
                                     </div>
                                     <!--end::Modal header-->
                                     <!--begin::Modal body-->
-                                    <div class="modal-body px-5 my-7">
-                                        <!--begin::Form-->
-                                        <form id="kt_modal_add_user_form" class="form" action="{{route('createOffering')}}" method="post">
-                                            @csrf
-                                            <!--begin::Scroll-->
-                                            <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-                                                <!--begin::Input group-->
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="required fw-semibold fs-6 mb-2">Display Name</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input type="text" name="display_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="The standard set of packages" />
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-7">
-                                                    <!--begin::Label-->
-                                                    <label class="required fw-semibold fs-6 mb-2">Lookup Key</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input type="text" name="lookup_key" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="default" />
-                                                    <!--end::Input-->
-                                                </div>
+                                    {{--                                    <div class="modal-body px-5 my-7">--}}
+                                    {{--                                        <!--begin::Form-->--}}
+                                    {{--                                        <form id="kt_modal_add_user_form" class="form" action="{{route('attachProducts'),$items->id}}" method="post">--}}
+                                    {{--                                            @csrf--}}
+                                    {{--                                            <!--begin::Scroll-->--}}
+                                    {{--                                            <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">--}}
+                                    {{--                                                <!--begin::Input group-->--}}
+                                    {{--                                                <!--end::Input group-->--}}
+                                    {{--                                                <!--begin::Input group-->--}}
+                                    {{--                                                <div class="fv-row mb-7">--}}
+                                    {{--                                                    <!--begin::Label-->--}}
+                                    {{--                                                    <label class="required fw-semibold fs-6 mb-2">Product Id</label>--}}
+                                    {{--                                                    <!--end::Label-->--}}
+                                    {{--                                                    <!--begin::Input-->--}}
+                                    {{--                                                    <input type="text" name="product_ids" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Premium Package" />--}}
+                                    {{--                                                    <!--end::Input-->--}}
+                                    {{--                                                </div>--}}
+                                    {{--                                                <!--end::Input group-->--}}
+                                    {{--                                                <!--begin::Input group-->--}}
+                                    {{--                                                <!--end::Radio-->--}}
+                                    {{--                                            </div>--}}
+                                    {{--                                            <!--end::Input row-->--}}
+                                    {{--                                            <!--end::Roles-->--}}
 
-                                                <!--end::Radio-->
-                                            </div>
-                                            <!--end::Input row-->
-                                            <!--end::Roles-->
+                                    {{--                                            <!--end::Input group-->--}}
 
-                                            <!--end::Input group-->
-
-                                            <!--end::Scroll-->
-                                            <!--begin::Actions-->
-                                            <div class="text-center pt-10">
-                                                <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
-                                                <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                                                    <span class="indicator-label">Submit</span>
-                                                    <span class="indicator-progress">Please wait...
-																	<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                                </button>
-                                            </div>
-                                            <!--end::Actions-->
-                                        </form>
-                                        <!--end::Form-->
-                                    </div>
+                                    {{--                                            <!--end::Scroll-->--}}
+                                    {{--                                            <!--begin::Actions-->--}}
+                                    {{--                                            <div class="text-center pt-10">--}}
+                                    {{--                                                <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>--}}
+                                    {{--                                                <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">--}}
+                                    {{--                                                    <span class="indicator-label">Submit</span>--}}
+                                    {{--                                                    <span class="indicator-progress">Please wait...--}}
+                                    {{--																	<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>--}}
+                                    {{--                                                </button>--}}
+                                    {{--                                            </div>--}}
+                                    {{--                                            <!--end::Actions-->--}}
+                                    {{--                                        </form>--}}
+                                    {{--                                        <!--end::Form-->--}}
+                                    {{--                                    </div>--}}
                                     <!--end::Modal body-->
                                 </div>
                                 <!--end::Modal content-->
@@ -262,15 +253,15 @@
                                 </div>
                             </th>
                             <th class="min-w-125px">No</th>
+                            <th class="min-w-125px">App Id</th>
                             <th class="min-w-125px">Object</th>
-                            <th class="min-w-125px">Lookup Key</th>
+                            <th class="min-w-125px">Store Identifier</th>
                             <th class="min-w-125px">Display Name</th>
-                            <th class="min-w-125px">Is Current</th>
-                            <th class="text-end min-w-100px">Actions</th>
+                            <th class="min-w-125px">Type</th>
                         </tr>
                         </thead>
                         <tbody class="text-gray-600 fw-semibold">
-                        {{--                        @dd($items)--}}
+{{--                                                @dd($items)--}}
                         @foreach ($items as $ent)
                             <tr>
                                 <td>
@@ -279,6 +270,7 @@
                                     </div>
                                 </td>
                                 <td>{{ $ent->id }}</td>
+                                <td>{{ $ent->app_id }}</td>
                                 <td class="d-flex align-items-center">
                                     <!--begin::User details-->
                                     <div class="d-flex flex-column">
@@ -288,33 +280,12 @@
                                     <!--begin::User details-->
                                 </td>
 
-                                <td>{{$ent->lookup_key}}</td>
+                                <td>{{$ent->store_identifier}}</td>
                                 <td>{{$ent->display_name}}</td>
-                                <td>{{$ent->is_current}}</td>
-                                <td class="text-end">
-                                    <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                                    <!--begin::Menu-->
-                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="{{ route('getOfferings',$ent->id) }}" class="menu-link px-3">Edit</a>
-                                        </div>
-                                        <div class="menu-item px-3">
-                                            <a href="{{ route('getPackagesWithOfferings',$ent->id) }}" class="menu-link px-3">Packages list</a>
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="{{route('deleteOfferings',$ent->id)}}"  class="menu-link px-3">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger" type="submit">Delete</button></a>
-                                        </div>
-                                        <!--end::Menu item-->
-                                    </div>
-                                    <!--end::Menu-->
-                                </td>
+                                <td>{{$ent->type}}</td>
+
+
+
                             </tr>
                         @endforeach
                         </tbody>
