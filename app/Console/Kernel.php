@@ -14,9 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->call(function () {
-            Task::where('deleted_at', '<', Carbon::now()->subDays(7))->delete();
-        })->weekly();
+        $schedule->command('clean:soft-deleted-files')->daily(); // Run the command daily
+
     }
 
     /**
@@ -24,8 +23,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
-
+        
         require base_path('routes/console.php');
     }
 }

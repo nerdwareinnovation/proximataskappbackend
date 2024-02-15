@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\BackendController;
 use App\Http\Controllers\EntitlementController;
 use App\Http\Controllers\FaceBookController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\OfferingController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +34,7 @@ Route::prefix('facebook')->name('facebook.')->group( function(){
 });
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
-Route::get('/dashboard',[App\Http\Controllers\BackendController::class,'test'])->name('dashboard');
+//Route::get('/dashboard',[App\Http\Controllers\BackendController::class,'test'])->name('dashboard');
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', App\Http\Controllers\RoleController::class);
     Route::resource('user', App\Http\Controllers\UserController::class);
@@ -65,5 +67,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/package/detach',[PackageController::class,'detachPackage'])->name('detachPackages');
     Route::get('/package/detach/{package}',[PackageController::class,'detach'])->name('detach.package');
     Route::get('/package/attach/{package}',[PackageController::class,'attach'])->name('attach.package');
-    Route::post('/package/attach',[PackageController::class,'attachPackage'])->name('attachPackages');
+    Route::get('/backend/dashboard',[BackendController::class,'dashboard'])->name('backend');
 ;});
