@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+    protected $signature = 'clean:soft-deleted-files';
+    protected $description = 'Delete soft-deleted files older than 7 days';
     public function index(){
         $task = Task::get();
         return response()->json([
@@ -222,23 +224,4 @@ class TaskController extends Controller
         ]);
 
     }
-    public function auto_delete()
-    {
-        $task = Task::onlyTrashed()->get();
-        foreach ($task as $tasks) {
-            $deleted = $tasks->deleted_at;
-//            dd($deleted);
-
-            $delete = Carbon::now()->diffInDays(Carbon::createFromTimestamp($deleted->timestamp));
-//            dd($delete);
-            if ($delete > 7){
-                $tasks->forceDelete();
-                return response()->json("Permanently deleted soft-deleted file: $tasks->id");
-            }
-
-        }
-    }
-
-
-
 }
