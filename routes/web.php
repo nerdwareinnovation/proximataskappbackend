@@ -67,5 +67,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/package/detach',[PackageController::class,'detachPackage'])->name('detachPackages');
     Route::get('/package/detach/{package}',[PackageController::class,'detach'])->name('detach.package');
     Route::get('/package/attach/{package}',[PackageController::class,'attach'])->name('attach.package');
-    Route::get('/backend/dashboard',[BackendController::class,'dashboard'])->name('backend');
+    Route::get('/backend/dashboard',[BackendController::class,'dashboard'])->name('dashboard');
 ;});

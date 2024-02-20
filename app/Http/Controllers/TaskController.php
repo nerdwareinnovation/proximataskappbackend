@@ -18,7 +18,12 @@ class TaskController extends Controller
         $completedCount = Task::where('is_completed', true)->where('user_id',$user_id)->count();
         $incompleteCount = Task::where('is_completed', false)->where('user_id',$user_id)->count();
         $totalTasks = $completedCount + $incompleteCount;
-        $percentage = round(($completedCount / $totalTasks) * 100);
+        if ($totalTasks == 0){
+            $percentage = round(0) ;
+        }
+        else {
+            $percentage = round(($completedCount / $totalTasks) * 100);
+        }
         $todo = Task::where('task_type_id',1)->where('user_id',$user_id)->count();
         $delete =Task::onlyTrashed()->where('user_id',$user_id)->count();
         $schedule = Task::where('task_type_id',2)->where('user_id',$user_id)->count();
