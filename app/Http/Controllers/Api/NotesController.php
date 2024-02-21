@@ -27,19 +27,10 @@ class NotesController extends Controller
              'note_title'=>'required'
             ]);
 
-        $themes = $request->file('theme');
 
-        $path = public_path('themes');
-//        dd($attachments);
-        if ($themes != NULL) {
-            $themes->move($path, $themes->getClientOriginalName());
-        }
 
         $notes = new Notes();
         $notes['font']= $request->font;
-        if ($themes != NULL){
-            $notes['theme'] = $themes->getClientOriginalName();
-        }
         $notes['note']= $request->note;
         $notes['user_id'] = auth()->user()->id;
         $notes['note_title']= $request->note_title;

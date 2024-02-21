@@ -42,6 +42,7 @@ Route::middleware('auth:api')->group(function() {
     Route::patch('/change-password',[ProfileController::class,'changePassword']);
     Route::post('/forgot-password',[ProfileController::class,'forgotPassword']);
     Route::post('/reset-password',[ProfileController::class,'resetPassword']);
+    Route::resource('theme',\App\Http\Controllers\Api\ThemeController::class);
 });
 
 
