@@ -12,7 +12,9 @@ class TaskController extends Controller
     protected $signature = 'clean:soft-deleted-files';
     protected $description = 'Delete soft-deleted files older than 7 days';
     public function index(){
-        $task = Task::get();
+        $user_id = auth()->user()->id;
+//        dd($user_id);
+        $task = Task::where('user_id',$user_id)->get();
         return response()->json([
             'data'=>$task,
             'status'=> 200
@@ -194,7 +196,8 @@ class TaskController extends Controller
     }
 
     public function destroy($id){
-        $task = Task::onlyTrashed()->find($id);
+        $user_id = auth()->user()->id;
+        $task = Task::onlyTrashed()->where('user_id',$user_id)->find($id);
 //        dd($task);
         $task->forceDelete();
 
@@ -207,7 +210,8 @@ class TaskController extends Controller
 
     public function deletedTask()
     {
-        $task = Task::onlyTrashed()->get();
+        $user_id = auth()->user()->id;
+        $task = Task::onlyTrashed()->where('user_id',$user_id)->get();
         return response()->json([
             'data'=> $task,
             'status'=>200,
@@ -217,7 +221,8 @@ class TaskController extends Controller
 
     public function archive()
     {
-        $task = Task::where('is_completed', true)->get();
+        $user_id = auth()->user()->id;
+        $task = Task::where('is_completed', true)->where('user_id',$user_id)->get();
         return response()->json([
             'data'=> $task,
             'status'=>200,

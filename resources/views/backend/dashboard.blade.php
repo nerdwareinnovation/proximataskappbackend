@@ -250,8 +250,8 @@
                             <div class="card-header pt-5">
                                 <!--begin::Title-->
                                 <h4 class="card-title d-flex align-items-start flex-column">
-                                    <span class="card-label fw-bold text-gray-800">Today’s Course</span>
-                                    <span class="text-gray-400 mt-1 fw-bold fs-7">4 lessons, 3 hours 45 minutes</span>
+                                    <span class="card-label fw-bold text-gray-800">Task Type</span>
+{{--                                    <span class="text-gray-400 mt-1 fw-bold fs-7">4 lessons, 3 hours 45 minutes</span>--}}
                                 </h4>
                                 <!--end::Title-->
                                 <!--begin::Toolbar-->
@@ -283,7 +283,7 @@
                                             <!--begin::Info-->
                                             <div class="m-0">
                                                 <!--begin::Subtitle-->
-                                                <h4 class="fw-bold text-gray-800 mb-3">Ruby on Rails</h4>
+                                                <h4 class="fw-bold text-gray-800 mb-3">To Do Task</h4>
                                                 <!--end::Subtitle-->
                                                 <!--begin::Items-->
                                                 <div class="d-flex d-grid gap-5">
@@ -294,14 +294,14 @@
 																			<i class="ki-duotone ki-right-square fs-6 text-gray-600 me-2">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
-																			</i>3 Topics</span>
+																			</i>{{$todo}} To Do</span>
                                                         <!--end::Section-->
                                                         <!--begin::Section-->
                                                         <span class="d-flex align-items-center text-gray-400 fw-bold fs-7">
 																			<i class="ki-duotone ki-right-square fs-6 text-gray-600 me-2">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
-																			</i>1 Speakers</span>
+																			</i>{{$delegate}}</span>
                                                         <!--end::Section-->
                                                     </div>
                                                     <!--end::Item-->
@@ -319,7 +319,7 @@
 																			<i class="ki-duotone ki-right-square fs-6 text-gray-600 me-2">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
-																			</i>72 students</span>
+																			</i>{{$schedule}}</span>
                                                         <!--end::Section-->
                                                     </div>
                                                     <!--end::Item-->
