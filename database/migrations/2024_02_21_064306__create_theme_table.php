@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //
         Schema::create('theme', function (Blueprint $table) {
-            $table->id()->autoIncrement()->primary();
+            $table->id();
             $table->string('theme');
             $table->string('theme_name');
             $table->integer('user_id');
