@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\GoogleController;
 use App\Http\Controllers\Api\NotesController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TaskController;
+use App\Http\Controllers\Api\ThemeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +43,7 @@ Route::middleware('auth:api')->group(function() {
     Route::patch('/change-password',[ProfileController::class,'changePassword']);
     Route::post('/forgot-password',[ProfileController::class,'forgotPassword']);
     Route::post('/reset-password',[ProfileController::class,'resetPassword']);
-    Route::resource('theme',\App\Http\Controllers\Api\ThemeController::class);
+    Route::resource('theme', ThemeController::class);
 });
 
 
