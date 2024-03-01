@@ -45,4 +45,51 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-' . $this->id);
+    }
+
+//    public function roles()
+//    {
+//        return $this->belongsTo('App\Role');
+//    }
+
+    public function picture()
+    {
+        return $this->hasOne('App\Picture');
+    }
+    public function package(){
+        return $this->hasOne('App\CustomerPackage','customer_id','id');
+    }
+
+    public function details()
+    {
+        return $this->hasOne('App\CustomerDetails');
+    }
+    public function astrologerDetails()
+    {
+        return $this->hasOne('App\AstrologerDetails');
+    }
+    public function psychologistDetails()
+    {
+        return $this->hasOne('App\PsychologistDetails');
+    }
+    public function moderatorDetails()
+    {
+        return $this->hasOne('App\ModeratorDetails');
+    }
+
+    public function customerPackage()
+    {
+        return $this->hasOne('App\CustomerPackage','customer_id');
+    }
+
+    public function moderator()
+    {
+        return $this->hasOne('App\User');
+    }
+    public function queries(){
+        return $this->hasMany('App\Chat','sender_id','id');
+    }
 }

@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('theme', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('theme');
-            $table->string('theme_name');
-            $table->integer('user_id');
+        Schema::create('transaction', function (Blueprint $table) {
+            $table->id();
+            $table->string('transaction_id');
+            $table->integer('package_id');
+            $table->integer('customer_id');
+            $table->double('price');
+            $table->string('status');
+            $table->string('method');
             $table->timestamps();
         });
     }
@@ -26,7 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
-        Schema::dropIfExists('theme');
+        Schema::dropIfExists('transaction');
     }
 };

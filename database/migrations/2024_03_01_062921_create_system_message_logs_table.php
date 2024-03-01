@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('theme', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('theme');
-            $table->string('theme_name');
-            $table->integer('user_id');
+        Schema::create('system_message_logs', function (Blueprint $table) {
+            $table->id();
+            $table->string('message_title');
+            $table->string('country');
+            $table->string('vedic_sign');
+            $table->string('customers');
+            $table->text('message');
             $table->timestamps();
         });
     }
@@ -26,7 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
-        Schema::dropIfExists('theme');
+        Schema::dropIfExists('system_message_logs');
     }
 };

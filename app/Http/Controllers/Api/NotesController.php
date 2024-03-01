@@ -33,6 +33,7 @@ class NotesController extends Controller
         $notes['font']= $request->font;
         $notes['note']= $request->note;
         $notes['user_id'] = auth()->user()->id;
+        $notes['theme'] = $request->theme;
         $notes['note_title']= $request->note_title;
         $notes['color_option']= $request->color_option;
         $notes->save();

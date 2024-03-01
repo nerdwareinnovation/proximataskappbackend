@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('theme', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('theme');
-            $table->string('theme_name');
-            $table->integer('user_id');
+        Schema::create('sample_questions_categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('category_name');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -26,7 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
-        Schema::dropIfExists('theme');
+        Schema::dropIfExists('sample_questions_categories');
     }
 };

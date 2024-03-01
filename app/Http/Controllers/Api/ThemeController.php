@@ -12,8 +12,12 @@ class ThemeController extends Controller
     public function index()
     {
         $theme = Themes::get();
+
+        $image = asset('/themes/');
+//        dd($image);
         return response()->json([
             'data'=>$theme,
+            'image'=>$image,
             'status'=> 200
         ]);
     }

@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('theme', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('theme');
-            $table->string('theme_name');
-            $table->integer('user_id');
+        Schema::create('back_to_mod', function (Blueprint $table) {
+            $table->id();
+            $table->integer('query_id');
+            $table->integer('astrologer_id');
+            $table->integer('moderator_id');
+            $table->text('astrologer_answer');
+            $table->text('moderator_reply');
             $table->timestamps();
         });
     }
@@ -26,7 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
-        Schema::dropIfExists('theme');
+        Schema::dropIfExists('back_to_mod');
     }
 };

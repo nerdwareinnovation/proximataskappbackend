@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('theme', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('theme');
-            $table->string('theme_name');
-            $table->integer('user_id');
+        Schema::create('pinned_message', function (Blueprint $table) {
+            $table->id();
+            $table->text('message');
+            $table->string('message_type');
+            $table->bigInteger('sender_id');
+            $table->bigInteger('pinned-by');
             $table->timestamps();
         });
     }
@@ -26,7 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
-        Schema::dropIfExists('theme');
+        Schema::dropIfExists('pinned_message');
     }
 };
