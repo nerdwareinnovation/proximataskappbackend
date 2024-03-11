@@ -55,7 +55,7 @@
                         <!--begin::Nav-->
                         <ul class="nav flex-column w-100" id="kt_aside_nav_tabs">
                             <!--begin::Nav item-->
-                            <li class="nav-item mb-2" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="right" data-bs-dismiss="click" title="Projects">
+                            <li class="nav-item mb-2" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="right" data-bs-dismiss="click" title="Astrology">
                                 <!--begin::Nav link-->
                                 <a class="nav-link btn btn-icon btn-active-color-primary btn-color-gray-400 btn-active-light" data-bs-toggle="tab" href="#kt_aside_nav_tab_projects">
                                     <i class="ki-duotone ki-element-11 fs-2x">
@@ -1723,33 +1723,33 @@
                                         <!--begin::Projects-->
                                         <div class="m-0">
                                             <!--begin::Heading-->
-                                            <h1 class="text-gray-800 fw-semibold mb-6 mx-5">Projects</h1>
+                                            <h1 class="text-gray-800 fw-semibold mb-6 mx-5">Astrology</h1>
                                             <!--end::Heading-->
                                             <!--begin::Items-->
                                             <div class="mb-10">
                                                 <!--begin::Item-->
-                                                <a href="../../demo7/dist/apps/projects/project.html" class="custom-list d-flex align-items-center px-5 py-4">
+                                                <a href="{{route("admin.systemMessage")}}" class="custom-list d-flex align-items-center px-5 py-4">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-5">
 																<span class="symbol-label">
-																	<img src="assets/media/svg/brand-logos/bebo.svg" class="h-50 align-self-center" alt="" />
+																	<img src="{{asset('backend/assets/media/svg/brand-logos/bebo.svg')}}" class="h-50 align-self-center" alt="" />
 																</span>
                                                     </div>
                                                     <!--end::Symbol-->
                                                     <!--begin::Description-->
                                                     <div class="d-flex flex-column flex-grow-1">
                                                         <!--begin::Title-->
-                                                        <h5 class="custom-list-title fw-semibold text-gray-800 mb-1">Briviba SaaS</h5>
+                                                        <h5 class="custom-list-title fw-semibold text-gray-800 mb-1">System Message</h5>
                                                         <!--end::Title-->
                                                         <!--begin::Link-->
-                                                        <span class="text-gray-400 fw-bold">By James</span>
+{{--                                                        <span class="text-gray-400 fw-bold">By James</span>--}}
                                                         <!--end::Link-->
                                                     </div>
                                                     <!--begin::Description-->
                                                 </a>
                                                 <!--end::Item-->
                                                 <!--begin::Item-->
-                                                <a href="../../demo7/dist/apps/projects/project.html" class="custom-list d-flex align-items-center px-5 py-4">
+                                                <a href="{{route('admin.systemMessage')}}" class="custom-list d-flex align-items-center px-5 py-4">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-5">
 																<span class="symbol-label">
@@ -1760,7 +1760,7 @@
                                                     <!--begin::Description-->
                                                     <div class="d-flex flex-column flex-grow-1">
                                                         <!--begin::Title-->
-                                                        <h5 class="custom-list-title fw-semibold text-gray-800 mb-1">Vine Quick Reports</h5>
+                                                        <h5 class="custom-list-title fw-semibold text-gray-800 mb-1">Moderators</h5>
                                                         <!--end::Title-->
                                                         <!--begin::Link-->
                                                         <span class="text-gray-400 fw-bold">By Andres</span>

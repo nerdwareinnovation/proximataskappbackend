@@ -13,7 +13,7 @@ class SystemMessageController extends Controller
 {
     public function index(){
         $system_messages = SystemMessageLog::all();
-        return view('admin.systemMessages.system_message')->with(compact('system_messages'));
+        return view('astro.admin.systemMessages.system_message')->with(compact('system_messages'));
     }
     public function sendSystemPrivateMessage(Request $request,$id){
         $customer = User::find($id);
@@ -31,9 +31,9 @@ class SystemMessageController extends Controller
 
         $notification['message_title']=$title;
         $notification['message_text']=$request['message_text'];
-        $firebaseToken = CustomerDetails::where('user_id','=', $customer->id)->pluck('fcm_token')->all();
+        $firebaseToken = User::where('user_id','=', $customer->id)->pluck('fcm_token')->all();
 
-        send_push_notification($firebaseToken,$notification);
+//        send_push_notification($firebaseToken,$notification);
         return redirect()->back();
 
     }
@@ -137,7 +137,8 @@ class SystemMessageController extends Controller
             }
             elseif($customer_type == 'platinum'){
                 $customers = User::whereHas('details',function ($query)  use($selected_vedic,$selected_country) {
-                    $query->where('question_asked','>=',100)->where('vedic_sign',$selected_vedic)->where('country_of_birth',$selected_country);
+                    $query->where('question_asked','>=',100)->where('vedic_sign',$selected_vedic)->where('birth_country
+                    ',$selected_country);
                 })->where('role_id','=',2)->get();
 
             }
@@ -152,7 +153,7 @@ class SystemMessageController extends Controller
                 }
                 elseif($customer_type == 'silver'){
                      $customers = User::whereHas('details',function ($query)  use($selected_vedic,$selected_country) {
-                        $query->whereBetween('question_asked',[1,50])->where('country_of_birth',$selected_country);
+                        $query->whereBetween('question_asked',[1,50])->where('birth_country',$selected_country);
                     })->where('role_id','=',2)->get();
 
                 }
@@ -165,7 +166,7 @@ class SystemMessageController extends Controller
                 }
                 elseif($customer_type == 'platinum'){
                     $customers = User::whereHas('details',function ($query)  use($selected_vedic,$selected_country) {
-                        $query->where('question_asked','>=',100)->where('country_of_birth',$selected_country);
+                        $query->where('question_asked','>=',100)->where('birth_country',$selected_country);
                     })->where('role_id','=',2)->get();
 
                 }
@@ -173,7 +174,7 @@ class SystemMessageController extends Controller
         }
         elseif($selected_country != 'default' AND $selected_vedic =='default' AND $customer_type =='default'){
             $customers = User::whereHas('details',function ($query) use($selected_country) {
-                $query->where('country_of_birth',$selected_country);
+                $query->where('birth_country',$selected_country);
             })->where('role_id','=',2)->get();
 
         }

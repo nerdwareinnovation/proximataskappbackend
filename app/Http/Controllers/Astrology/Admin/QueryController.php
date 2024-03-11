@@ -161,7 +161,7 @@ class QueryController extends Controller
                                                            ->whereDate('created_at','>=',$start)->get();
 
 
-        return view('admin.queryList')->with(compact('queries','start','end'));
+        return view('astro.admin.queryList')->with(compact('queries','start','end'));
 
     }
     public function queryCheck(){

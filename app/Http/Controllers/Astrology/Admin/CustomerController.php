@@ -22,7 +22,7 @@ class CustomerController extends Controller
         $customers = User::where('role_id','2')->whereDate('created_at','<=',$end)
             ->whereDate('created_at','>=',$start)->get();
 
-        return view('admin.customerList')->with(compact('customers','start','end'));
+        return view('astro.admin.customerList')->with(compact('customers','start','end'));
 
     }
     public function updateAvailableQuestion(Request $request,$id){

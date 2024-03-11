@@ -10,7 +10,7 @@ class FilterWordsController extends Controller
 {
     public function index(){
         $filterWords = FilterWords::all();
-        return view('admin.parasiticWords')->with(compact('filterWords'));
+        return view('astro.admin.parasiticWords')->with(compact('filterWords'));
     }
     public function storeParasiticWord(Request $request){
         $validated = $request->validate([

@@ -57,39 +57,39 @@ class User extends Authenticatable
 
     public function picture()
     {
-        return $this->hasOne('App\Picture');
+        return $this->hasOne('App\Models\Astrology\Picture');
     }
     public function package(){
-        return $this->hasOne('App\CustomerPackage','customer_id','id');
+        return $this->hasOne('App\Models\Astrology\CustomerPackage','customer_id','id');
     }
 
-    public function details()
-    {
-        return $this->hasOne('App\CustomerDetails');
-    }
+//    public function details()
+//    {
+//        return $this->hasOne('App\Models\Astrology\CustomerDetails');
+//    }
     public function astrologerDetails()
     {
-        return $this->hasOne('App\AstrologerDetails');
+        return $this->hasOne('App\Models\Astrology\AstrologerDetails');
     }
     public function psychologistDetails()
     {
-        return $this->hasOne('App\PsychologistDetails');
+        return $this->hasOne('App\Models\Astrology\PsychologistDetails');
     }
     public function moderatorDetails()
     {
-        return $this->hasOne('App\ModeratorDetails');
+        return $this->hasOne('App\Models\Astrology\ModeratorDetails');
     }
 
     public function customerPackage()
     {
-        return $this->hasOne('App\CustomerPackage','customer_id');
+        return $this->hasOne('App\Models\Astrology\CustomerPackage','customer_id');
     }
 
     public function moderator()
     {
-        return $this->hasOne('App\User');
+        return $this->hasOne('App\Models\User');
     }
     public function queries(){
-        return $this->hasMany('App\Chat','sender_id','id');
+        return $this->hasMany('App\Models\Astrology\Chat','sender_id','id');
     }
 }

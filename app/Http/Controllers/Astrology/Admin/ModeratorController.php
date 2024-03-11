@@ -24,7 +24,7 @@ class ModeratorController extends Controller
     public function editModerator($id){
             $moderator = User::with('moderatorDetails')->where('id',$id)->first();
 
-            return view('admin.editModerator')->with(compact('moderator'));
+            return view('astro.admin.editModerator')->with(compact('moderator'));
         }
     public function filterModerator(Request $request){
         $validated = $request->validate([
@@ -37,7 +37,7 @@ class ModeratorController extends Controller
         $moderators = User::where('role_id','4')->whereDate('created_at','<=',$end)
             ->whereDate('created_at','>=',$start)->get();
 
-        return view('admin.moderatorList')->with(compact('moderators','start','end'));
+        return view('astro.admin.moderatorList')->with(compact('moderators','start','end'));
 
     }
 
@@ -112,6 +112,6 @@ class ModeratorController extends Controller
 
         $data['rating'] =  round($rating->avg('customer_rating.rating'),2);
         $data['total_raters_count'] = count($rating);
-        return view('admin.moderatorKPIDetails')->with($data);
+        return view('astro.admin.moderatorKPIDetails')->with($data);
     }
 }

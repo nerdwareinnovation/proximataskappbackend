@@ -150,7 +150,7 @@ class AstrologerController extends Controller
     }
     public function editAstrologer(Request $request,$id){
         $user = User::find($id);
-        return view('admin.editAstrologer')->with(compact('user'));
+        return view('astro.admin.editAstrologer')->with(compact('user'));
     }
     public function updateAstrologer(Request $request,$id){
         $user = User::find($id);
@@ -227,7 +227,7 @@ class AstrologerController extends Controller
 
         $astrologers = User::where('role_id','3')->whereDate('created_at','<=',$end)
             ->whereDate('created_at','>=',$start)->get();
-        return view('admin.astrologerList')->with(compact('astrologers','start','end'));
+        return view('astro.admin.astrologerList')->with(compact('astrologers','start','end'));
 
     }
     public function astrologerKPI(Request $request,$id){
@@ -242,6 +242,6 @@ class AstrologerController extends Controller
 
         $data['rating'] =  round($rating->avg('customer_rating.rating'),2);
         $data['total_raters_count'] = count($rating);
-        return view('admin.astrologerKPIDetails')->with($data);
+        return view('astro.admin.astrologerKPIDetails')->with($data);
     }
 }

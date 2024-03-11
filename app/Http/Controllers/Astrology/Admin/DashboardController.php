@@ -38,7 +38,7 @@ class DashboardController extends Controller
         $astrologers_count = (count(User::all()->where('role_id','=','3')));
         $moderator_count= (count(User::all()->where('role_id','=','4')));
         $queries_count =(count(AstrologerQuery::all()));
-        return view('admin.dashboard')->with(compact('messages','answered_moderator','answered_count','postponed_count','customers_count','moderator_count','astrologers_count','queries_count','sent_to_psychologist_count'));
+        return view('astro.admin.dashboard')->with(compact('messages','answered_moderator','answered_count','postponed_count','customers_count','moderator_count','astrologers_count','queries_count','sent_to_psychologist_count'));
 
     }
     public function filterDashboard(Request $request){
@@ -70,20 +70,20 @@ class DashboardController extends Controller
         $moderator_count= (count(User::all()->where('role_id','=','4')->where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)));
         $queries_count =(count(AstrologerQuery::where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)->get()));
         }
-        return view('admin.dashboard')->with(compact('messages','answered_moderator','answered_count','postponed_count','customers_count','moderator_count','astrologers_count','queries_count','sent_to_psychologist_count','filterOption'));
+        return view('astro.admin.dashboard')->with(compact('messages','answered_moderator','answered_count','postponed_count','customers_count','moderator_count','astrologers_count','queries_count','sent_to_psychologist_count','filterOption'));
 
     }
     public function customerList(){
 
         $customers = User::with('package')->where('role_id','=','2')->get();
 
-        return view('admin.customerList')->with(compact('customers'));
+        return view('astro.admin.customerList')->with(compact('customers'));
     }
 
     public function psychologistList(){
         $psychologists = User::all()->where('role_id','=','5');
 
-        return view('admin.psychologistList')->with(compact('psychologists'));
+        return view('astro.admin.psychologistList')->with(compact('psychologists'));
     }
 
 
@@ -92,7 +92,7 @@ class DashboardController extends Controller
     public function astrologerList(){
         $astrologers = User::all()->where('role_id','=','3');
 
-        return view('admin.astrologerList')->with(compact('astrologers'));
+        return view('astro.admin.astrologerList')->with(compact('astrologers'));
     }
 
 
@@ -104,28 +104,28 @@ class DashboardController extends Controller
        $cus_messages = Chat::with('astrologerQuery','rating')->where('sender_id','=',$customer->id)->orWhere('sender_id','=',0)->orWhere('receiver_id','=',$customer->id)->get();
         $pinnedMessages = PinnedMessage::where('pinned_by',Auth::user()->id)->latest()->get();
 
-        return view('admin.customerScreen')->with(compact('customer','messages','questions','customer_notes','cus_messages','pinnedMessages'));
+        return view('astro.admin.customerScreen')->with(compact('customer','messages','questions','customer_notes','cus_messages','pinnedMessages'));
     }
 
     public function customerSample(){
         $questions = SampleQuestionsCategory::all();
-        return view('admin.question.customerSample')->with(compact('questions'));
+        return view('astro.admin.question.customerSample')->with(compact('questions'));
     }
 
     public function editCustomerQuestion($id){
         $questions = SampleQuestionsCategory::all();
         $ques_edit = SampleQuestions::find($id);
-        return view('admin.question.customerSample')->with(compact('questions','ques_edit'));
+        return view('astro.admin.question.customerSample')->with(compact('questions','ques_edit'));
     }
 
     public function questionModCategory(){
             $categories = SampleQuestionsCategoryModerator::all();
-            return view('admin.question.categoryModerator')->with(compact('categories'));
+            return view('astro.admin.question.categoryModerator')->with(compact('categories'));
     }
     public function editQuestionModCategory($id){
         $categories = SampleQuestionsCategoryModerator::all();
         $category = SampleQuestionsCategoryModerator::find($id);
-        return view('admin.question.categoryModerator')->with(compact('categories','category'));
+        return view('astro.admin.question.categoryModerator')->with(compact('categories','category'));
     }
     public function updateCategoryModerator(Request $request,$id){
             $validated = $request->validate([
@@ -192,13 +192,13 @@ class DashboardController extends Controller
     public function moderatorSample(){
         $questions = SampleQuestionsCategoryModerator::with('questions')->get();
 
-        return view('admin.question.moderatorSample')->with(compact('questions'));
+        return view('astro.admin.question.moderatorSample')->with(compact('questions'));
     }
 
     public function editModeratorQuestion($id){
         $questions = SampleQuestionsCategoryModerator::with('questions')->get();
         $ques_edit = SampleQuestionsModerator::find($id);
-        return view('admin.question.moderatorSample')->with(compact('questions','ques_edit'));
+        return view('astro.admin.question.moderatorSample')->with(compact('questions','ques_edit'));
     }
     public function updateModeratorQuestionSample(Request $request,$id){
         $questions = SampleQuestionsModerator::find($id);

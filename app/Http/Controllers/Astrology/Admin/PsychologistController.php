@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 class PsychologistController extends Controller
 {
     public function addNewPsychologist(){
-        return view('admin.addNewPsychologist');
+        return view('astro.admin.addNewPsychologist');
     }
     public function storePsychologist(Request $request){
         $validated = $request->validate([

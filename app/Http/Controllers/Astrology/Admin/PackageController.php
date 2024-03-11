@@ -10,7 +10,7 @@ class PackageController extends Controller
 {
     public function index(){
         $packages = Package::all();
-        return view('admin.packageList')->with(compact('packages'));
+        return view('astro.admin.packageList')->with(compact('packages'));
     }
 
     public function storePackage(Request $request){
@@ -28,4 +28,5 @@ class PackageController extends Controller
         $package->save();
         return $this->index();
     }
+
 }

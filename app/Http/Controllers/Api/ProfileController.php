@@ -94,6 +94,16 @@ class ProfileController extends Controller
             'status'=>200,
         ]);
     }
+    public function getProfile(Request $request)
+    {
+            $user_id = Auth::user()->id;
+            $user = User::where('id',$user_id)->get();
+        return response()->json([
+            'data'=> $user,
+            'message'=>"User profile has been updated successfully",
+            'status'=>200,
+        ]);
+    }
     public function changePassword(Request $request)
     {
 

@@ -40,6 +40,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/tasks/archive',[TaskController::class,'archive']);
     Route::put('/tasks/{id}/complete',[TaskController::class,'isComplete']);
     Route::patch('/user/{id}/update',[ProfileController::class,'updateProfile']);
+    Route::get('/user/{id}/profile',[ProfileController::class,'getProfile']);
     Route::patch('/change-password',[ProfileController::class,'changePassword']);
     Route::post('/forgot-password',[ProfileController::class,'forgotPassword']);
     Route::post('/reset-password',[ProfileController::class,'resetPassword']);
