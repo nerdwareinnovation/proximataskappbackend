@@ -33,7 +33,7 @@ class UserResource extends JsonResource
         }
 
         $data['details']=new CustomerDetailsResource($this->details);
-        $data['customer_package']=new CustomerPackageResource($this->customerPackage);
+//        $data['customer_package']=new CustomerPackageResource($this->customerPackage);
         return $data;
     }
 }

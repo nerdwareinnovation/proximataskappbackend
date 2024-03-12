@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Astrology\API;
 
 use App\Http\Resources\CustomerDetailsResource;
 use App\Http\Resources\UserResource;
@@ -32,7 +32,6 @@ class LoginController extends Controller
             $userUpdate->fcm_token=$request['fcm_token'];
 
             $userUpdate->save();
-
             $token = $user->createToken('passport_token')->accessToken;
 
             return response()->json($token);
@@ -188,9 +187,9 @@ class LoginController extends Controller
     }
 
     public function user(Request $request){
-        $userUpdate = CustomerDetails::where('user_id','=', auth()->user()->id)->first();
+        $userUpdate = User::find(auth()->user()->id)->first();
 
-        $userUpdate->fcm_token = $request->fcm_token;
+//        $userUpdate->fcm_token = $request->fcm_token;
 
         $userUpdate->save();
         return new UserResource($request->user());

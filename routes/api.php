@@ -45,6 +45,11 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/forgot-password',[ProfileController::class,'forgotPassword']);
     Route::post('/reset-password',[ProfileController::class,'resetPassword']);
     Route::resource('theme', ThemeController::class);
+
+    //ASTROLOGY API
+    Route::get('user',[\App\Http\Controllers\Astrology\API\LoginController::class,'user']);
+    Route::get('conversation',[\App\Http\Controllers\Astrology\API\ConversationController::class,'index']);
+
 });
 
 
