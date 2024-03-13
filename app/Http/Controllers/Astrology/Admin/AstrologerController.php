@@ -146,7 +146,7 @@ class AstrologerController extends Controller
 
     }
     public function addNewAstrologer(){
-        return view('admin.addNewAstrologer');
+        return view('astro.admin.addNewAstrologer');
     }
     public function editAstrologer(Request $request,$id){
         $user = User::find($id);

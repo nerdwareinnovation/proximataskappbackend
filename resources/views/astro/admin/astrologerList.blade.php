@@ -1,27 +1,34 @@
-@extends('layouts.admin_layouts')
-@section('pagespecificstyles')
-    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/datatables.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/dt-global_style.css')}}">
-    <link href="{{asset('backend/assets/css/elements/avatar.css')}}" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/widgets/modules-widgets.css')}}">
-        <link href="{{asset('backend/assets/css/components/cards/card.css')}}" rel="stylesheet" type="text/css" />
+@extends('layouts.master')
+{{--@section('pagespecificstyles')--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/datatables.css')}}">--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/dt-global_style.css')}}">--}}
+{{--    <link href="{{asset('backend/assets/css/elements/avatar.css')}}" rel="stylesheet" type="text/css" />--}}
+{{--        <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/widgets/modules-widgets.css')}}">--}}
+{{--        <link href="{{asset('backend/assets/css/components/cards/card.css')}}" rel="stylesheet" type="text/css" />--}}
 
-    @endsection
+{{--    @endsection--}}
 @section('content')
-    <div class="row layout-top-spacing">
 
-        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing mt-3">
-            <div class="widget-content widget-content-area br-6">
-                <div class="col-md-12">
 
-                    <div class="offset-2">
+    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+        <!--begin::Container-->
+        <div class="container-xxl" id="kt_content_container">
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <div class="card-title">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                            <h4>Add New Astrologer</h4>
+                        </div>
+
                         <form method="POST" enctype="multipart/form-data" action="{{route('admin.filterAstrologer')}}">@csrf
                             <div class="row">
 
-                                <div class="mt-2 col-md-4">
+                                <div class="col-md-4">
                                     From: <input name="from_date" value="{{ date('Y-m-d',strtotime($start ?? date('Y-m-d')))}}" class="form-control" type="date">
                                 </div>
-                                <div class="mt-2 col-md-4">
+                                <div class="col-md-4">
                                     To: <input name="to_date"  value="{{ date('Y-m-d',strtotime($start ?? date('Y-m-d')))}}" class="form-control" type="date">
                                 </div>
                                 <div class="col-md-4">
@@ -30,28 +37,28 @@
 
                             </div>
                         </form>
-                    </div>
+
                     <div class="col-md-12" style="text-align: right">
                         <a href="{{route('admin.addAstrologer')}}" > <button class="btn btn-primary">Add New Astrologer</button></a>
 
                     </div>
                 </div>
-                <div class="table-responsive mb-4 mt-4">
-                    <table id="zero-config" class="table table-hover" style="width:100%">
+                  <div class="card-body py-4">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                         <thead>
-                        <tr>
-                            <th>Avatar</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Designation</th>
+                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                            <th class="min-w-125px">Avatar</th>
+                            <th class="min-w-125px">Name</th>
+                            <th class="min-w-125px">Email</th>
+                            <th class="min-w-125px">Designation</th>
 
-                            <th>Total Question Answered</th>
-                            <th>Status</th>
+                            <th class="min-w-125px">Total Question Answered</th>
+                            <th class="min-w-125px">Status</th>
 
                             <th class="no-content"></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-gray-600 fw-semibold">
                         @foreach($astrologers as $astrologer)
                             <tr>
 
@@ -119,7 +126,7 @@
 
                             </tr>
                         @endforeach
-                        </tfoot>
+                        </tbody>
                     </table>
                 </div>
             </div>

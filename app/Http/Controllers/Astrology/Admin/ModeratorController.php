@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Astrologer\Admin;
+namespace App\Http\Controllers\Astrology\Admin;
 
 use App\Models\Astrology\ModeratorDetails;
 use App\Models\Astrology\Chat;
@@ -16,10 +16,10 @@ class ModeratorController extends Controller
 {
     public function moderatorList(){
         $moderators = User::all()->where('role_id','=','4');
-        return view('admin.moderatorList')->with(compact('moderators'));
+        return view('astro.admin.moderatorList')->with(compact('moderators'));
     }
     public function addNewModerator(){
-        return view('admin.addNewModerator');
+        return view('astro.admin.addNewModerator');
     }
     public function editModerator($id){
             $moderator = User::with('moderatorDetails')->where('id',$id)->first();

@@ -189,7 +189,9 @@ class LoginController extends Controller
     public function user(Request $request){
         $userUpdate = User::find(auth()->user()->id)->first();
 
-//        $userUpdate->fcm_token = $request->fcm_token;
+//        $userUpdate->f
+//
+//cm_token = $request->fcm_token;
 
         $userUpdate->save();
         return new UserResource($request->user());

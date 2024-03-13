@@ -71,6 +71,8 @@ Route::group(['middleware' => ['auth']], function() {
 //    Route::get('/backend/astrology','DashboardController@index')->name('astrology');
 ;});
 
+//Astorlogy web
+
 Route::post('storeCustomerNotes', 'Admin\AstrologerController@storeCustomerNotes');
 Route::group(['as'=>'admin.','prefix' => 'admin','middleware'=>['auth']], function () {
     Route::post('storeNote', 'CustomerNotesController@storeNote');
@@ -85,7 +87,8 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middlewar
     Route::get('user/active/{id}', 'DashboardController@activateUser');
     Route::get('user/delete/{id}', 'DashboardController@deleteUser');
 
-    Route::get('psychologists', 'DashboardController@psychologistList')->name('psychologists');
+//    Route::get('psychologists', 'DashboardController@psychologistList')->name('psychologists');
+    Route::get('psychologists', [App\Http\Controllers\Astrology\Admin\DashboardController::class,'psychologistList'])->name('psychologists');
     Route::get('addPsychologist', 'PsychologistController@addNewPsychologist')->name('addPsychologist');
     Route::post('storePsychologist', 'PsychologistController@storePsychologist')->name('storePsychologist');
 
@@ -102,7 +105,8 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middlewar
     Route::get('parasiteWords/delete/{id}', 'FilterWordsController@deleteParasiteWords');
     Route::post('storeParasiticWord', 'FilterWordsController@storeParasiticWord')->name('storeParasiticWord');
 
-    Route::get('moderators', 'ModeratorController@moderatorList')->name('moderators');
+//    Route::get('moderators', 'ModeratorController@moderatorList')->name('moderators');
+    Route::get('moderators', [App\Http\Controllers\Astrology\Admin\ModeratorController::class,'moderatorList'])->name('moderators');
     Route::get('addModerator', 'ModeratorController@addNewModerator')->name('addModerator');
     Route::post('storeModerator', 'ModeratorController@storeModerator')->name('storeModerator');
     Route::get('editModerator/{id}', 'ModeratorController@editModerator');
@@ -110,9 +114,12 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middlewar
 
 
 
-    Route::get('astrologers', 'DashboardController@astrologerList')->name('astrologers');
-    Route::post('storeAstrologers', 'AstrologerController@storeAstrologer')->name('storeAstrologer');
-    Route::get('addAstrologer', 'AstrologerController@addNewAstrologer')->name('addAstrologer');
+//    Route::get('astrologers', 'DashboardController@astrologerList')->name('astrologers');
+    Route::get('astrologers', [App\Http\Controllers\Astrology\Admin\DashboardController::class,'astrologerList'])->name('astrologers');
+//    Route::post('storeAstrologers', 'AstrologerController@storeAstrologer')->name('storeAstrologer');
+    Route::post('storeAstrologers',  [App\Http\Controllers\Astrology\Admin\AstrologerController::class,'storeAstrologer'])->name('storeAstrologer');
+//    Route::get('addAstrologer', 'AstrologerController@addNewAstrologer')->name('addAstrologer');
+    Route::get('addAstrologer', [App\Http\Controllers\Astrology\Admin\AstrologerController::class,'addNewAstrologer'])->name('addAstrologer');
     Route::get('editAstrologer/{id}', 'AstrologerController@editAstrologer')->name('editAstrologer');
     Route::post('updateAstrologer/{id}', 'AstrologerController@updateAstrologer')->name('updateAstrologer');
 
@@ -215,8 +222,9 @@ Route::group(['as'=>'psychologist.','prefix' => 'psychologist','namespace'=>'Psy
 });
 
 
-Route::group(['as'=>'moderator.','prefix' => 'moderator','middleware'=>['auth','moderator']], function () {
-    Route::get('dashboard', 'Moderator\DashboardController@index')->name('dashboard');
+Route::group(['as'=>'moderator.','prefix' => 'moderator','middleware'=>['auth']], function () {
+//    Route::get('dashboard', 'Moderator\DashboardController@index')->name('dashboard');
+    Route::get('dashboard', [App\Http\Controllers\Astrology\Moderator\DashboardController::class,'index'])->name('dashboard');
     Route::get('queries', 'Moderator\DashboardController@queryList')->name('queryList');
     Route::get('query/{id}', 'Moderator\DashboardController@queryScreen');
     Route::post('clarifyQuestionToCustomer', 'Moderator\DashboardController@clarifyQuestionToCustomer');

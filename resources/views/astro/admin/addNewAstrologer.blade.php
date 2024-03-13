@@ -1,18 +1,19 @@
-@extends('layouts.admin_layouts')
+@extends('layouts.master')
 
-@section('pagespecificstyles')
-    <link href="{{asset('backend/plugins/file-upload/file-upload-with-preview.min.css')}}" rel="stylesheet" type="text/css" />
-@endsection
+{{--@section('pagespecificstyles')--}}
+{{--    <link href="{{asset('backend/plugins/file-upload/file-upload-with-preview.min.css')}}" rel="stylesheet" type="text/css" />--}}
+{{--@endsection--}}
 @section('content')
 
 
-    <div class="row layout-top-spacing">
-
-
-            <div id="flFormsGrid" class="col-lg-12 layout-spacing">
-                <div class="statbox widget box box-shadow">
-                    <div class="widget-header">
-                        <div class="row">
+    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+        <!--begin::Container-->
+        <div class="container-xxl" id="kt_content_container">
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <div class="card-title">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                                 <h4>Add New Astrologer</h4>
                             </div>
