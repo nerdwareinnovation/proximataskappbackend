@@ -49,7 +49,20 @@ Route::middleware('auth:api')->group(function() {
     //ASTROLOGY API
     Route::get('user',[\App\Http\Controllers\Astrology\API\LoginController::class,'user']);
     Route::get('conversation',[\App\Http\Controllers\Astrology\API\ConversationController::class,'index']);
-
+    Route::post('messages',[\App\Http\Controllers\Astrology\API\ChatController::class,'store']);
+    Route::post('storeTemplateMessage',[\App\Http\Controllers\Astrology\API\ChatController::class,'storeTemplateMessage']);
+    Route::post('buyPackage',[\App\Http\Controllers\Astrology\API\PackageController::class,'buyPackage']);
+    Route::post('rateQuery',[\App\Http\Controllers\Astrology\API\ChatController::class,'rateQuery']);
+    Route::post('updateRating',[\App\Http\Controllers\Astrology\API\ChatController::class,'updateRating']);
+    Route::get('packages',[\App\Http\Controllers\Astrology\API\CustomerPackageController::class,'index']);
+    Route::get('sampleQuestions',[\App\Http\Controllers\Astrology\API\SampleQuestionsController::class,'index']);
+    Route::get('astrologers',[\App\Http\Controllers\Astrology\API\AstrologerDetailsController::class,'index']);
+    Route::get('detail',[\App\Http\Controllers\Astrology\API\CustomerDetailsController::class,'index']);
+    Route::post('conversation',[\App\Http\Controllers\Astrology\API\ConversationController::class,'store']);
+    Route::post('updateUser',[\App\Http\Controllers\Astrology\API\CustomerDetailsController::class,'update']);
+    Route::post('updateUserImage',[\App\Http\Controllers\Astrology\API\CustomerDetailsController::class,'updateUserImage']);
+    Route::post('conversation/read',[\App\Http\Controllers\Astrology\API\ConversationController::class,'makeConversationAsRead']);
+    Route::post('updatePackage',[\App\Http\Controllers\Astrology\API\PackageController::class,'customerBuyPackage']);
 });
 
 

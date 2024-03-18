@@ -1,22 +1,32 @@
-@extends('layouts.admin_layouts')
-@section('pagespecificstyles')
-    <link href="{{asset('backend/assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('backend/assets/css/components/tabs-accordian/custom-accordions.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/forms/theme-checkbox-radio.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/forms/switches.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/datatables.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/dt-global_style.css')}}">
+@extends('layouts.master')
+{{--@section('pagespecificstyles')--}}
+{{--    <link href="{{asset('backend/assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />--}}
+{{--    <link href="{{asset('backend/assets/css/components/tabs-accordian/custom-accordions.css')}}" rel="stylesheet" type="text/css" />--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/forms/theme-checkbox-radio.css')}}">--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/forms/switches.css')}}">--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/datatables.css')}}">--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/dt-global_style.css')}}">--}}
 
-@endsection
+{{--@endsection--}}
 @section('content')
 
-    <div class="row layout-top-spacing">
-        <div class="col-lg-8 layout-spacing">
-            <div class="widget-content widget-content-area br-6">
-                <div class="table-responsive mb-4 mt-4">
-                    <table id="zero-config" class="table table-hover" style="width:100%">
-                        <thead>
-                        <tr>
+    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+        <!--begin::Container-->
+        <div class="container-xxl" id="kt_content_container">
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                            <h4>Parasitic Words</h4>
+                        </div>
+                    </div>
+            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                <thead>
+                <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                <tr>
                             <th>Word</th>
 
 
@@ -34,11 +44,10 @@
                                 </td>
                             </tr>
                         @endforeach
-                        </tfoot>
+                        </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
+
         <div class="col-lg-4 col-4 layout-spacing">
             <div class="statbox widget box box-shadow">
                 <div class="widget-header">
@@ -63,8 +72,10 @@
                 </div>
             </div>
         </div>
-
+            </div>
     </div>
+    </div>
+
 
 @endsection
 

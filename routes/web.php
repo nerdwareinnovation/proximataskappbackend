@@ -87,23 +87,22 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middlewar
     Route::get('user/active/{id}', 'DashboardController@activateUser');
     Route::get('user/delete/{id}', 'DashboardController@deleteUser');
 
-//    Route::get('psychologists', 'DashboardController@psychologistList')->name('psychologists');
+
     Route::get('psychologists', [App\Http\Controllers\Astrology\Admin\DashboardController::class,'psychologistList'])->name('psychologists');
-    Route::get('addPsychologist', 'PsychologistController@addNewPsychologist')->name('addPsychologist');
-    Route::post('storePsychologist', 'PsychologistController@storePsychologist')->name('storePsychologist');
 
+    Route::get('addPsychologist', [\App\Http\Controllers\Astrology\Admin\PsychologistController::class,'addNewPsychologist'])->name('addPsychologist');
+    Route::post('storePsychologist', [\App\Http\Controllers\Astrology\Admin\PsychologistController::class,'storePsychologist'])->name('storePsychologist');
 
-    Route::get('queries', 'QueryController@queryList')->name('queries');
+    Route::get('queries', [\App\Http\Controllers\Astrology\Admin\QueryController::class,'queryList'])->name('queries');
     Route::get('getQueryList', 'QueryController@getQueryList')->name('getQueryList');
     Route::get('getCustomerList', 'CustomerController@getCustomerList')->name('getCustomerList');
     Route::post('updateAvailableQuestion/{id}', 'CustomerController@updateAvailableQuestion')->name('updateAvailableQuestion');
 
-    Route::get('parasiteWords', 'FilterWordsController@index')->name('parasiteWords');
+    Route::get('parasiteWords',[\App\Http\Controllers\Astrology\Admin\FilterWordsController::class,'index'])->name('parasiteWords');
     Route::get('queryCheck', 'QueryController@queryCheck')->name('query');
 
-    Route::get('parasiteWords', 'FilterWordsController@index')->name('parasiteWords');
-    Route::get('parasiteWords/delete/{id}', 'FilterWordsController@deleteParasiteWords');
-    Route::post('storeParasiticWord', 'FilterWordsController@storeParasiticWord')->name('storeParasiticWord');
+    Route::get('parasiteWords/delete/{id}', [\App\Http\Controllers\Astrology\Admin\FilterWordsController::class,'deleteParasiteWords']);
+    Route::post('storeParasiticWord', [\App\Http\Controllers\Astrology\Admin\FilterWordsController::class,'storeParasiticWord'])->name('storeParasiticWord');
 
 //    Route::get('moderators', 'ModeratorController@moderatorList')->name('moderators');
     Route::get('moderators', [App\Http\Controllers\Astrology\Admin\ModeratorController::class,'moderatorList'])->name('moderators');
@@ -168,9 +167,9 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middlewar
 
 });
 
-Route::group(['as'=>'astrologer.','prefix' => 'astrologer','namespace'=>'Astrologer','middleware'=>['auth','astrologer']], function () {
+Route::group(['as'=>'astrologer.','prefix' => 'astrologer','namespace'=>'Astrologer','middleware'=>['auth']], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-    Route::get('queries', 'DashboardController@astrologerQuery')->name('queries');
+    Route::get('queries', [\App\Http\Controllers\Astrology\Astrologer\DashboardController::class,'astrologerQuery'])->name('queries');
     Route::get('query/{id}', 'DashboardController@queryScreen');
     Route::get('editVedic/{id}', 'DashboardController@editCustomer');
     Route::post('updateAnswerModeration', 'DashboardController@updateAnswerModeration')->name('updateAnswerModeration');

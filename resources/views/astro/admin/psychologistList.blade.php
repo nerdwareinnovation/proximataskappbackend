@@ -14,7 +14,7 @@
                 <div class="card-header border-0 pt-6">
                     <div class="card-title">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                            <h4>Moderator List</h4>
+                            <h4>Psychologist List</h4>
                         </div>
 
                         <form method="POST" enctype="multipart/form-data" action="{{route('admin.filterAstrologer')}}">@csrf

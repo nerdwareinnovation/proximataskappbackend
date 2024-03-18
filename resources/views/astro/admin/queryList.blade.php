@@ -1,16 +1,20 @@
-@extends('layouts.admin_layouts')
-@section('pagespecificstyles')
-    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/datatables.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/dt-global_style.css')}}">
-    <link href="{{asset('backend/assets/css/elements/avatar.css')}}" rel="stylesheet" type="text/css" />
-@endsection
+@extends('layouts.master')
 @section('content')
 
-    <div class="row layout-top-spacing">
-
-        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing mt-3">
-            <div class="widget-content widget-content-area br-6">
-                <div class="offset-2">
+    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+        <!--begin::Container-->
+        <div class="container-xxl" id="kt_content_container">
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                            <h4>Query</h4>
+                        </div>
+                    </div>
+                </div>
                     <form method="POST" enctype="multipart/form-data" action="{{route('admin.filterQuery')}}">@csrf
                         <div class="row">
 
@@ -26,11 +30,11 @@
 
                         </div>
                     </form>
-                </div>
-                <div class="table-responsive mb-4 mt-4">
-                    <table id="zero-config" class="table table-hover" style="width:100%">
+                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                    <thead>
+                    <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                         <thead>
-                        <tr>
+                    <tr>
                             <th>Customer</th>
 
                             <th>Status</th>
@@ -43,8 +47,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
         <div class="modal fade" id="customerModal" role="dialog">
             <div class="modal-dialog modal-lg">
 
@@ -83,7 +85,8 @@
             </div>
         </div>
     </div>
-
+    </div>
+    </div>
 @endsection
 
 @section('pagespecificscripts')
@@ -285,34 +288,34 @@
 
     </script>
 
-    <script>
+{{--    <script>--}}
 
-        function searchCustomer(id){
-            event.preventDefault();
-            var customerId = id;
+{{--        function searchCustomer(id){--}}
+{{--            event.preventDefault();--}}
+{{--            var customerId = id;--}}
 
-            // AJAX request
-            $.ajax({
+{{--            // AJAX request--}}
+{{--            $.ajax({--}}
 
-                url: '{{route('searchCustomer')}}',
-                type: 'post',
-                data: {_token: "{{ csrf_token() }}",customerId: customerId},
-                success: function(response){
-                    // Add response in Modal body
+{{--                url: '{{route('searchCustomer')}}',--}}
+{{--                type: 'post',--}}
+{{--                data: {_token: "{{ csrf_token() }}",customerId: customerId},--}}
+{{--                success: function(response){--}}
+{{--                    // Add response in Modal body--}}
 
-                    $('#customerModal .modal-body').html(response);
-
-
-                    $('#customerModal').modal('show');
-                },
-                error: function (){
-                    toastr.error("No Customer Found")
-                }
-            });
-
-        }
+{{--                    $('#customerModal .modal-body').html(response);--}}
 
 
+{{--                    $('#customerModal').modal('show');--}}
+{{--                },--}}
+{{--                error: function (){--}}
+{{--                    toastr.error("No Customer Found")--}}
+{{--                }--}}
+{{--            });--}}
 
-    </script>
+{{--        }--}}
+
+
+
+{{--    </script>--}}
 @endsection

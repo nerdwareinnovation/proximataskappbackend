@@ -53,7 +53,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+
 
         <div class="col-lg-4 col-4 layout-spacing">
             <div class="statbox widget box box-shadow">
@@ -366,6 +366,9 @@
                     </form>
             </div>
         </div>
+            </div>
+        </div>
+    </div>
 
 
 @endsection

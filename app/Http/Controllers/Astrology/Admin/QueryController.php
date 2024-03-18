@@ -17,7 +17,7 @@ class QueryController extends Controller
 //                })->where('receiver_id','!=',0)->latest()->get();
 
 
-        return view('admin.queryList');
+        return view('astro.admin.queryList');
     }
     public function getQueryList(Request $request){
 //        try{
