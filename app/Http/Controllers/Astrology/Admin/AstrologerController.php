@@ -7,6 +7,7 @@ use App\Models\Astrology\AstrologerQuery;
 use App\Models\Astrology\PostponeTask;
 use App\Models\Astrology\Chat;
 use App\Models\Astrology\CustomerDetails;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,7 @@ class AstrologerController extends Controller
         $markasread = Chat::find($request['chat_id']);
         $sender = $markasread->sender_id;
         $astrologerQuery = new AstrologerQuery;
-        $astrologers = User::all()->where('role_id','=','3')->where('status',1);
+        $astrologers = User::role('astrologer')->where('status',1);
         $astrologer_count = 0;
         $filtered_astrologers = $astrologers->filter(function ($item) {
             return $item->isOnline();
@@ -183,7 +184,7 @@ class AstrologerController extends Controller
         $user = new User();
         $user->name=$request['name'];
         $user->email=$request['email'];
-        $user->role_id=3;
+        $user->assignRole('astrologer');
         $user->password=bcrypt($request['password']);
         $user->save();
         $astrologer_details = new AstrologerDetails();
@@ -225,7 +226,8 @@ class AstrologerController extends Controller
         $start = Carbon::parse($request->from_date);
         $end = Carbon::parse($request->to_date);
 
-        $astrologers = User::where('role_id','3')->whereDate('created_at','<=',$end)
+        $astrologers = User::role('astrologer
+        ')->whereDate('created_at','<=',$end)
             ->whereDate('created_at','>=',$start)->get();
         return view('astro.admin.astrologerList')->with(compact('astrologers','start','end'));
 
@@ -233,11 +235,11 @@ class AstrologerController extends Controller
     public function astrologerKPI(Request $request,$id){
         $user = User::find($id);
         $data['questions_answered'] =Chat::whereHas('astrologerQuery',function ($query) use($id){
-            $query->where('astrologer_id',$id);
+            $query->where('user_id',$id);
         })->where('read',2)->count();
         $data['questions_postponed'] = PostponeTask::where('user_id',$id)->count();
         $data['astrologer_name'] = $user->name;
-        $rating = AstrologerQuery::with('customer_rating')->where('astrologer_id',$id)->get();
+        $rating = AstrologerQuery::with('customer_rating')->where('user_id',$id)->get();
 
 
         $data['rating'] =  round($rating->avg('customer_rating.rating'),2);

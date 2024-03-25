@@ -44,7 +44,7 @@ class GoogleController extends Controller
                     'google_id'=> $user->id,
                     'password' => encrypt('')
                 ]);
-
+                $newUser->assignRole('customer');
                 $newUser->save();
                 //login as the new user
                 Auth::login($newUser);

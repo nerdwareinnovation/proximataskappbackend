@@ -86,7 +86,7 @@ class ChatController extends Controller
         $message->read = 0;
         $message->sender_id = auth()->user()->id;
         $sender = auth()->user()->id;
-        $moderators = User::all()->where('role_id','=','4')->where('status',1);
+        $moderators = User::all()->role('moderator')->where('status',1);
         $moderator_count = 0;
         $filtered_moderators = $moderators->filter(function ($item) {
             return $item->isOnline();

@@ -11,6 +11,7 @@ use App\Models\Astrology\CustomerNotes;
 use App\Models\Astrology\SampleQuestionsModerator;
 use App\Models\Astrology\SampleQuestionsCategory;
 use App\Models\Astrology\SampleQuestionsCategoryModerator;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -23,20 +24,20 @@ class DashboardController extends Controller
     public function index(){
 
         $messages = Chat::whereHas('sender', function ($query){
-            $query->where('role_id', '2');
+            $query->role('customer');
         })->where('read','!=',2)->where('created_at', '>=', Carbon::now()->subDay()->toDateTimeString())->latest()->get();
 
         $t_messages = (Chat::whereHas('sender', function ($query){
-            $query->where('role_id', '2');})->get());
+            $query->role('customer');})->get());
         $total_messages= Count($t_messages);
 
         $answered_moderator = (count($t_messages->where('read','=','2')));
         $sent_to_psychologist_count = (count($t_messages->where('read','=','4'))/$total_messages)*100;;
         $answered_count = (count($t_messages->where('read','=','2'))/$total_messages)*100;
         $postponed_count = (count($t_messages->where('read','=','3'))/$total_messages)*100;
-        $customers_count = (count(User::all()->where('role_id','=','2')));
-        $astrologers_count = (count(User::all()->where('role_id','=','3')));
-        $moderator_count= (count(User::all()->where('role_id','=','4')));
+        $customers_count = (count(User::all()->role('customer')));
+        $astrologers_count = (count(User::all()->role('astrologer')));
+        $moderator_count= (count(User::all()->role('moderator')));
         $queries_count =(count(AstrologerQuery::all()));
         return view('astro.admin.dashboard')->with(compact('messages','answered_moderator','answered_count','postponed_count','customers_count','moderator_count','astrologers_count','queries_count','sent_to_psychologist_count'));
 
@@ -46,11 +47,11 @@ class DashboardController extends Controller
 
         $filterOption = $request['filterOption'];
         $messages = Chat::whereHas('sender', function ($query){
-            $query->where('role_id', '2');
+            $query->role('customer');
         })->where('read','!=',2)->where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)->latest()->get();
 
         $t_messages = (Chat::whereHas('sender', function ($query){
-            $query->where('role_id', '2');})->where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)->get());
+            $query->role('customer');})->where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)->get());
         $total_messages= Count($t_messages);
 
         $answered_moderator = (count($t_messages->where('read','=','2')));
@@ -90,7 +91,8 @@ class DashboardController extends Controller
 
 
     public function astrologerList(){
-        $astrologers = User::all()->where('role_id','=','3');
+
+        $astrologers = User::role('astrologer')->get();
 
         return view('astro.admin.astrologerList')->with(compact('astrologers'));
     }

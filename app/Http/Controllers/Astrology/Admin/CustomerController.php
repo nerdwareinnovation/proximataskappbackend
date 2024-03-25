@@ -19,7 +19,7 @@ class CustomerController extends Controller
         $start = Carbon::parse($request->from_date);
         $end = Carbon::parse($request->to_date);
 
-        $customers = User::where('role_id','2')->whereDate('created_at','<=',$end)
+        $customers = User::role('customer')->whereDate('created_at','<=',$end)
             ->whereDate('created_at','>=',$start)->get();
 
         return view('astro.admin.customerList')->with(compact('customers','start','end'));
@@ -49,13 +49,13 @@ class CustomerController extends Controller
         $searchValue = $search_arr['value']; // Search value
 
         // Total records
-        $totalRecords = User::where('role_id','2')->select('count(*) as allcount')->count();
+        $totalRecords = User::role('customer')->select('count(*) as allcount')->count();
 
 //        $searchByCategory = $request->get('category');
 //        $searchBySubCategory = $request->get('subCategory');
 //        $searchByReporter = $request->get('reporter');
 //        $searchByStatus = $request->get('status');
-        $query = User::where('role_id','2');
+        $query = User::role('customer');
         ## Search
 
 //        if($searchByCategory != ''){

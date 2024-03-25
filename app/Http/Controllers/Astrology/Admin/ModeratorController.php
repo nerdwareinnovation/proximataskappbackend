@@ -15,7 +15,7 @@ use App\Http\Controllers\Controller;
 class ModeratorController extends Controller
 {
     public function moderatorList(){
-        $moderators = User::all()->where('role_id','=','4');
+        $moderators = User::all()->role('moderator');
         return view('astro.admin.moderatorList')->with(compact('moderators'));
     }
     public function addNewModerator(){
@@ -34,7 +34,7 @@ class ModeratorController extends Controller
         $start = Carbon::parse($request->from_date);
         $end = Carbon::parse($request->to_date);
 
-        $moderators = User::where('role_id','4')->whereDate('created_at','<=',$end)
+        $moderators = User::role('moderator')->whereDate('created_at','<=',$end)
             ->whereDate('created_at','>=',$start)->get();
 
         return view('astro.admin.moderatorList')->with(compact('moderators','start','end'));

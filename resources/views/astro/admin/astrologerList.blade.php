@@ -68,16 +68,16 @@
                                         @if($astrologer->isOnline())
 
                                             <div class="avatar avatar-xl avatar-indicators avatar-online">
-                                                @if(isset($astrologer->astrologerDetails->image_url))
-                                                    <img alt="avatar" src="{{asset($astrologer->astrologerDetails->image_url)}}" class="rounded-circle" />
+                                                @if(isset($astrologer->image_url))
+                                                    <img alt="avatar" src="{{asset($astrologer->image_url)}}" class="rounded-circle" />
                                                 @else
                                                     <img alt="avatar" src="{{asset('avatar.jpg')}}" class="rounded-circle" />
                                                 @endif
                                             </div>
                                         @else
                                             <div class="avatar avatar-xl avatar-indicators avatar-offline">
-                                                @if(isset($astrologer->astrologerDetails->image_url))
-                                                    <img alt="avatar" src="{{asset($astrologer->astrologerDetails->image_url)}}" class="rounded-circle" />
+                                                @if(isset($astrologer->image_url))
+                                                    <img alt="avatar" src="{{asset($astrologer->image_url)}}" class="rounded-circle" />
                                                 @else
                                                     <img alt="avatar" src="{{asset('avatar.jpg')}}" class="rounded-circle" />
                                                 @endif
@@ -91,9 +91,9 @@
 
                                 <td><a  onclick="astrologerKPI({{$astrologer->id}})">{{$astrologer->name}}</a></td>
                                 <td>{{$astrologer->email}}</td>
-                                <td>{{$astrologer->astrologerDetails->designation}}</td>
+                                <td>{{$astrologer->designation}}</td>
 
-                                <td>{{$astrologer->astrologerDetails->total_question_answered}}</td>
+                                <td>{{$astrologer->total_question_answered}}</td>
                                 <td>
                                     @if($astrologer->status == 1)
                                         <span class="badge badge-success">Active</span>
