@@ -187,14 +187,13 @@ class LoginController extends Controller
     }
 
     public function user(Request $request){
-        $userUpdate = User::find(auth()->user()->id)->first();
-
-//        $userUpdate->f
-//
-//cm_token = $request->fcm_token;
-
-        $userUpdate->save();
-        return new UserResource($request->user());
+        $user_id = Auth::user()->id;
+        $user = User::where('id',$user_id)->get();
+        return response()->json([
+            'data'=> $user,
+            'message'=>"User profile has been updated successfully",
+            'status'=>200,
+        ]);
     }
 
     public function logout(){

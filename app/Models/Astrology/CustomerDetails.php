@@ -12,6 +12,6 @@ class CustomerDetails extends Model
     }
     public function package()
     {
-        return $this->belongsTo('App\CustomerPackage','customer_id','user_id');
+        return $this->belongsTo('App\CustomerPackage','user_id','user_id');
     }
 }

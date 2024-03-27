@@ -153,10 +153,10 @@ Disciple Karma Shakya";
 
     public function storeTemplateMessage(Request $request)
     {
-        $customer_package = CustomerPackage::where('customer_id', auth()->user()->id)->first();
+        $customer_package = CustomerPackage::where('user_id', auth()->user()->id)->first();
 
         $left_ques = $customer_package->question_left;
-        $customer_details = CustomerDetails::where('user_id', auth()->user()->id)->first();
+        $customer_details = CustomerDetails::where('customer_id', auth()->user()->id)->first();
 
         if ($customer_details->country_of_birth != null && $customer_details->date_of_birth != null && $customer_details->time_of_birth != null) {
 
@@ -173,7 +173,7 @@ Disciple Karma Shakya";
                 $message->read = 0;
                 $message->sender_id = auth()->user()->id;
 
-                $moderators = User::all()->where('role_id', '=', '4')->where('status', 1);
+                $moderators = User::all()->role('moderator')->where('status', 1);
                 $moderator_count = 0;
                 $filtered_moderators = $moderators->filter(function ($item) {
                     return $item->isOnline();

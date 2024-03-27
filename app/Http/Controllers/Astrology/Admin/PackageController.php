@@ -25,6 +25,7 @@ class PackageController extends Controller
         $package->description = $request['description'];
         $package->number_of_questions = $request['no_of_question'];
         $package->price = $request['price'];
+        $package->price = $request['price'];
         $package->save();
         return $this->index();
     }
