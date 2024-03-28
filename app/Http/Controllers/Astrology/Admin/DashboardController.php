@@ -66,9 +66,9 @@ class DashboardController extends Controller
         $sent_to_psychologist_count = (count($t_messages->where('read','=','4'))/$total_messages)*100;;
         $answered_count = (count($t_messages->where('read','=','2'))/$total_messages)*100;
         $postponed_count = (count($t_messages->where('read','=','3'))/$total_messages)*100;
-        $customers_count = (count(User::all()->where('role_id','=','2')->where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)));
-        $astrologers_count = (count(User::all()->where('role_id','=','3')->where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)));
-        $moderator_count= (count(User::all()->where('role_id','=','4')->where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)));
+        $customers_count = (count(User::all()->role('customer')->where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)));
+        $astrologers_count = (count(User::all()->role('astrologer')->where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)));
+        $moderator_count= (count(User::all()->role('moderator')->where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)));
         $queries_count =(count(AstrologerQuery::where('created_at','>=', $request->from_date)->where('created_at','<=', $request->to_date)->get()));
         }
         return view('astro.admin.dashboard')->with(compact('messages','answered_moderator','answered_count','postponed_count','customers_count','moderator_count','astrologers_count','queries_count','sent_to_psychologist_count','filterOption'));
@@ -76,13 +76,13 @@ class DashboardController extends Controller
     }
     public function customerList(){
 
-        $customers = User::with('package')->where('role_id','=','2')->get();
+        $customers = User::with('package')->role('customer')->get();
 
         return view('astro.admin.customerList')->with(compact('customers'));
     }
 
     public function psychologistList(){
-        $psychologists = User::all()->where('role_id','=','5');
+        $psychologists = User::all()->role('psychologist');
 
         return view('astro.admin.psychologistList')->with(compact('psychologists'));
     }

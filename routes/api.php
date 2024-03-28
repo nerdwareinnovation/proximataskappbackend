@@ -40,12 +40,11 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/tasks/archive',[TaskController::class,'archive']);
     Route::put('/tasks/{id}/complete',[TaskController::class,'isComplete']);
     Route::patch('/user/{id}/update',[ProfileController::class,'updateProfile']);
-    Route::get('/user/profile',[ProfileController::class,'getProfile']);
+//    Route::get('/user/profile',[ProfileController::class,'getProfile']);
     Route::patch('/change-password',[ProfileController::class,'changePassword']);
     Route::post('/forgot-password',[ProfileController::class,'forgotPassword']);
     Route::post('/reset-password',[ProfileController::class,'resetPassword']);
     Route::resource('theme', ThemeController::class);
-
     //ASTROLOGY API
     Route::get('user',[\App\Http\Controllers\Astrology\API\LoginController::class,'user']);
     Route::get('conversation',[\App\Http\Controllers\Astrology\API\ConversationController::class,'index']);
@@ -60,9 +59,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('detail',[\App\Http\Controllers\Astrology\API\CustomerDetailsController::class,'index']);
     Route::post('conversation',[\App\Http\Controllers\Astrology\API\ConversationController::class,'store']);
     Route::post('updateUser',[\App\Http\Controllers\Astrology\API\CustomerDetailsController::class,'update']);
-    Route::post('updateUserImage',[\App\Http\Controllers\Astrology\API\CustomerDetailsController::class,
-
-        'updateUserImage']);
+    Route::post('updateUserImage',[\App\Http\Controllers\Astrology\API\CustomerDetailsController::class, 'updateUserImage']);
     Route::post('conversation/read',[\App\Http\Controllers\Astrology\API\ConversationController::class,'makeConversationAsRead']);
     Route::post('updatePackage',[\App\Http\Controllers\Astrology\API\PackageController::class,'customerBuyPackage']);
 });
